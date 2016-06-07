@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// This is a simple demonstration on how to use the GDIPlusC library.
+// This is a simple demonstration on how to use the GDI+ C library.
 //---------------------------------------------------------------------------
 
 #include <Windows.h>
@@ -116,7 +116,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         pt.X = 160.0f;
         pt.Y = 100.0f;
 
-        Graphics_DrawStringToPoint(g, L"This is a sample text.", -1, font, &pt, NULL, brush);
+        Graphics_DrawStringToPoint(g, L"This is a sample text.", -1, font, 
+                                   &pt, NULL, brush);
 
         // Make sure to delete all the objects when they are not needed.
         Pen_Delete(pen);
