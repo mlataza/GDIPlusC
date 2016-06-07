@@ -1,8 +1,11 @@
+//---------------------------------------------------------------------------
+// This is a simple demonstration on how to use the GDIPlusC library.
+//---------------------------------------------------------------------------
+
 #include <Windows.h>
 #include "..\GDI+ C\gdiplusc.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
                     LPWSTR pCmdLine, int nShowCmd)
@@ -17,26 +20,29 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     wcex.hIconSm = NULL;
     wcex.hInstance = NULL;
     wcex.lpfnWndProc = WndProc;
-    wcex.lpszClassName = L"GDIPlus_Test";
+    wcex.lpszClassName = L"GDIPlusC Test Window";
     wcex.lpszMenuName = NULL;
-    wcex.style = 0;
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
 
     if (!RegisterClassEx(&wcex))
     {
         return -1;
     }
 
+    //
+    //  Initialize GDI+.
+    //
     GdiplusStartupInput input;
-    input.GdiplusVersion = 1;
-    input.DebugEventCallback = NULL;
-    input.SuppressBackgroundThread = FALSE;
+    input.GdiplusVersion = 1; 
+    input.DebugEventCallback = NULL; 
+    input.SuppressBackgroundThread = FALSE;  
     input.SuppressExternalCodecs = FALSE;
 
     ULONG_PTR token;
 
-    GdipluscStartup(&token, &input, NULL);
+    GdipluscStartup(&token, &input, NULL); // Call this function to start GDI+ C.
 
-    HWND hWnd = CreateWindow(L"GDIPlus_Test",
+    HWND hWnd = CreateWindow(L"GDIPlusC Test Window",
                              L"Testing",
                              WS_OVERLAPPEDWINDOW,
                              CW_USEDEFAULT, CW_USEDEFAULT,
@@ -53,7 +59,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         DispatchMessage(&msg);
     }
 
-    GdipluscShutdown(token);
+    //
+    //  Closing GDI+ C.
+    //
+    GdipluscShutdown(token); // Call this function before the application exits.
 
     return (int)msg.wParam;
 }
@@ -73,48 +82,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         HDC hdc = BeginPaint(hWnd, &ps);
 
         // Draw here using GDI+ C.
-
+       
         Graphics * g;
-        Graphics_CreateFromHDC(hdc, &g);
-        Graphics_SetSmoothingMode(g, SmoothingModeAntiAlias);
+        Graphics_CreateFromHDC(hdc, &g); // Create the graphics object.
+        Graphics_SetSmoothingMode(g, SmoothingModeAntiAlias); // Set smoothing mode to anti alias. 
+                                                              // This gives you smooth lines.
 
-        Pen * blue;
-        Pen_Create(0xff0000ff, 1.0f, &blue);
+        Pen * pen;
+        Pen_Create(ARGB(255, 255, 0, 0), 2.0f, &pen); // Creates a red pen. This function returns Ok when successful.
+                                                      // ARGB creates a color with A - alpha, 
+                                                      //                           R - red,
+                                                      //                           G - green,
+                                                      //                           B - blue
+                                                      // You could also represent that color in hex:
+                                                      // 0xffff0000
+                                                      //   A R G B
 
-        Pen * red;
-        Pen_Create(0xffff0000, 1.0f, &red);
+        // Let's draw a line now.
+        Graphics_DrawLineI(g, pen, 12, 15, 400, 245); // When the function ends with 'I', it uses integer-based coordinates.
+                                                      // Otherwise, it uses float-based coordinates. 
 
-        int y = 256;
-        int x;
-
-        for (x = 0; x < 256; x += 5)
-        {
-            Graphics_DrawLineI(g, blue, 0, y, x, 0);
-            Graphics_DrawLineI(g, red, 256, x, y, 256);
-        }
-
-        Pen * pen = NULL;
-        Pen_Create(0xffffffff, 1.0f, &pen);
-
-        for (y = 0; y < 256; y++)
-        {
-           Pen_SetColor(pen, ARGB(y, 0, 255, 0));
-
-            Graphics_DrawLineI(g, pen, 0, y, 256, y);
-        }
-
-        for (x = 0; x < 256; x++)
-        {
-            Pen_SetColor(pen, ARGB(x, 255, 0, 255));
-
-            Graphics_DrawLineI(g, pen, x, 100, x, 200);
-        }
-
+        // Make sure to delete all the objects when they are not needed.
         Pen_Delete(pen);
-        Pen_Delete(red);
-        Pen_Delete(blue);
         Graphics_Delete(g);
-
+        
         // End Draw
 
         EndPaint(hWnd, &ps);
