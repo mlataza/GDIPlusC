@@ -1151,15 +1151,6 @@ typedef enum GpTestControlEnum
 
     typedef BOOL(CALLBACK * EnumerateMetafileProc)(EmfPlusRecordType, UINT, UINT, const BYTE*, VOID*);
 
-#if (GDIPVER >= 0x0110)
-// This is the main GDI+ Abort interface
-
-struct __declspec(novtable) GdiplusAbort
-{
-    virtual HRESULT __stdcall Abort(void) = 0;
-};
-#endif //(GDIPVER >= 0x0110)
-
 //--------------------------------------------------------------------------
 // Primitive data types
 //
@@ -1836,6 +1827,8 @@ VOID WINAPI Color_SetFromCOLORREF(OUT Color * color, IN COLORREF rgb);
 COLORREF WINAPI Color_ToCOLORREF(IN Color color);
 
 // Assemble A, R, G, B values into a 32-bit integer
+
+#define ARGB(a, r, g, b) ((Color)Color_MakeARGB(a, r, g, b))
 
 ARGB WINAPI Color_MakeARGB(IN BYTE a,
                            IN BYTE r,
