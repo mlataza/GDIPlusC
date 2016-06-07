@@ -89,7 +89,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                                               // This gives you smooth lines.
 
         Pen * pen;
-        Pen_Create(ARGB(255, 255, 0, 0), 2.0f, &pen); // Creates a red pen. This function returns Ok when successful.
+        Pen_Create(ARGB(128, 255, 0, 0), 2.5f, &pen); // Creates a red pen. This function returns Ok when successful.
                                                       // ARGB creates a color with A - alpha, 
                                                       //                           R - red,
                                                       //                           G - green,
@@ -101,6 +101,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // Let's draw a line now.
         Graphics_DrawLineI(g, pen, 12, 15, 400, 245); // When the function ends with 'I', it uses integer-based coordinates.
                                                       // Otherwise, it uses float-based coordinates. 
+
+        // Let's draw a string.
+        FontFamily * family;
+        FontFamily_CreateFromName(L"Times New Roman", NULL, &family);
+
+        Font * font;
+        Font_Create(family, 24, FontStyleRegular, UnitPixel, &font);
+
+        SolidBrush * brush;
+        SolidBrush_Create(Blue, &brush);
+
+        PointF pt;
+        pt.X = 160.0f;
+        pt.Y = 100.0f;
+
+        Graphics_DrawStringToPoint(g, L"This is a sample text.", -1, font, &pt, NULL, brush);
 
         // Make sure to delete all the objects when they are not needed.
         Pen_Delete(pen);

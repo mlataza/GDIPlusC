@@ -481,7 +481,7 @@ EXPORTS
 	Graphics_FillClosedCurve2I
 	Graphics_FillRegion
 	Graphics_DrawString
-	Graphics_DrawStringFromPoint
+	Graphics_DrawStringToPoint
 	Graphics_MeasureString
 	Graphics_MeasureStringSize
 	Graphics_MeasureCharacterRanges

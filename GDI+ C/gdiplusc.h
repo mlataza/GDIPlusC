@@ -5662,7 +5662,7 @@ Graphics_DrawString(
 );
 
 Status WINAPI
-Graphics_DrawStringFromPoint(
+Graphics_DrawStringToPoint(
     IN Graphics * graphics,
     IN const WCHAR * string,
     IN INT length,
