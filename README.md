@@ -1,4 +1,4 @@
-# GDIPlusC
+# GDI+ C
 The C version of windows GDI+. This is a C wrapper for the GDI+ Flat API. See more at https://msdn.microsoft.com/en-us/library/windows/desktop/ms533969(v=vs.85).aspx.
 
 This library is designed to be used with C language as a replacement for the windows C++ GDI+ library. 
