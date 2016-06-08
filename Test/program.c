@@ -4,6 +4,7 @@
 
 #include <Windows.h>
 #include "..\GDI+ C\gdiplusc.h"
+#pragma comment(lib, "../Release/gdiplusc.lib")
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -88,6 +89,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         Graphics_SetSmoothingMode(g, SmoothingModeAntiAlias); // Set smoothing mode to anti alias. 
                                                               // This gives you smooth lines.
 
+        Image * testImg;
+        Image_LoadFromFile(L"Test.bmp", FALSE, &testImg);
+
+        INT width = Image_GetWidth(testImg);
+        INT height = Image_GetHeight(testImg);
+
+        // Destination rectangle of the image.
+        Rect rect;
+        rect.X = 0;
+        rect.Y = 0;
+        rect.Width = width; // Use original size of image so that the image wont be stretched.
+        rect.Height = height;
+
+        Graphics_DrawImageRectRectI(g, testImg, &rect, 0, 0, width, height, UnitPixel, NULL, NULL, NULL);
+
         Pen * pen;
         Pen_Create(ARGB(128, 255, 0, 0), 2.5f, &pen); // Creates a red pen. This function returns Ok when successful.
                                                       // ARGB creates a color with A - alpha, 
@@ -118,6 +134,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
         Graphics_DrawStringToPoint(g, L"This is a sample text.", -1, font, 
                                    &pt, NULL, brush);
+
+        
 
         // Make sure to delete all the objects when they are not needed.
         Pen_Delete(pen);
