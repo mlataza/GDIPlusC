@@ -76,6 +76,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     static Image * testImg;
     static WCHAR szCurrentDir[MAX_PATH];
+    static INT width, height;
 
     switch (msg)
     {
@@ -100,10 +101,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // It is better to use the full name rather than the directory name.
         Image_LoadFromFile(szTestImageFullPath, FALSE, &testImg);
 
+        width = Image_GetWidth(testImg);
+        height = Image_GetHeight(testImg);
+
         return 0;
     }
     case WM_DESTROY:
     {
+        // Dispose the image before the window is destroyed.
         Image_Dispose(testImg);
         PostQuitMessage(0);
         return 0;
@@ -119,9 +124,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         Graphics_CreateFromHDC(hdc, &g); // Create the graphics object.
         Graphics_SetSmoothingMode(g, SmoothingModeAntiAlias); // Set smoothing mode to anti alias. 
                                                               // This gives you smooth lines.
-
-        INT width = Image_GetWidth(testImg);
-        INT height = Image_GetHeight(testImg);
 
         // Destination rectangle of the image.
         Rect rect;
@@ -164,8 +166,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                                    &pt, NULL, brush);
 
         
-
         // Make sure to delete all the objects when they are not needed.
+        SolidBrush_Delete(brush);
+        Font_Delete(font);
+        FontFamily_Delete(family);
         Pen_Delete(pen);
         Graphics_Delete(g);
         
