@@ -132,7 +132,8 @@
       <AdditionalDependencies>gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y "$(ProjectDir)gdiplusc.h" "$(TargetDir)"</Command>
+      <Command>xcopy /y "$(ProjectDir)gdiplusc.h" "$(TargetDir)"
+xcopy /y "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\Debug"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

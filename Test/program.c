@@ -1,9 +1,13 @@
 //---------------------------------------------------------------------------
+//
 // This is a simple demonstration on how to use the GDI+ C library.
+//
+// GDIPlusC.dll should be in the exe's directory.
+//
 //---------------------------------------------------------------------------
 
 #include <Windows.h>
-#include "..\GDI+ C\gdiplusc.h"
+#include "..\Release\gdiplusc.h"
 #pragma comment(lib, "../Release/gdiplusc.lib")
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -70,10 +74,37 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+    static Image * testImg;
+    static WCHAR szCurrentDir[MAX_PATH];
+
     switch (msg)
     {
+    case WM_CREATE:
+    {
+        GetModuleFileName(NULL, szCurrentDir, MAX_PATH);
+        DWORD lastChar = wcslen(szCurrentDir) - 1;
+        // Trim the filename of the program.
+        while (szCurrentDir[lastChar] != L'\\')
+        {
+            lastChar--;
+        }
+
+        szCurrentDir[lastChar + 1] = L'\0';
+
+        // Build the full path of the Test.bmp.
+        // The Test.bmp is located in the program's directory.
+        WCHAR szTestImageFullPath[MAX_PATH];
+        wcscpy_s(szTestImageFullPath, MAX_PATH, szCurrentDir);
+        wcscat_s(szTestImageFullPath, MAX_PATH, L"Test.bmp");
+
+        // It is better to use the full name rather than the directory name.
+        Image_LoadFromFile(szTestImageFullPath, FALSE, &testImg);
+
+        return 0;
+    }
     case WM_DESTROY:
     {
+        Image_Dispose(testImg);
         PostQuitMessage(0);
         return 0;
     }
@@ -88,9 +119,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         Graphics_CreateFromHDC(hdc, &g); // Create the graphics object.
         Graphics_SetSmoothingMode(g, SmoothingModeAntiAlias); // Set smoothing mode to anti alias. 
                                                               // This gives you smooth lines.
-
-        Image * testImg;
-        Image_LoadFromFile(L"Test.bmp", FALSE, &testImg);
 
         INT width = Image_GetWidth(testImg);
         INT height = Image_GetHeight(testImg);
