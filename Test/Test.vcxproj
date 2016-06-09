@@ -150,6 +150,7 @@
     <ClCompile Include="dialog1.c" />
     <ClCompile Include="dialog10.c" />
     <ClCompile Include="dialog11.c" />
+    <ClCompile Include="dialog12.c" />
     <ClCompile Include="dialog2.c" />
     <ClCompile Include="dialog3.c" />
     <ClCompile Include="dialog4.c" />
@@ -169,6 +170,7 @@
     <ResourceCompile Include="Test.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="HouseAndTree.png" />
     <Image Include="Texture1.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

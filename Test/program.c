@@ -96,7 +96,8 @@ Sample Samples[] = {
     {L"8. Drawing a Line Filled with a Texture", DialogProc8},
     {L"9. Filling a Shape with a Solid Color", DialogProc9},
     {L"10. Filling a Shape with a Hatch Pattern", DialogProc10},
-    {L"11. Filling a Shape with an Image Texture", DialogProc11}
+    {L"11. Filling a Shape with an Image Texture", DialogProc11},
+    {L"12. Tiling a Shape with an Image", DialogProc12}
 };
 
 #define MARGIN      8

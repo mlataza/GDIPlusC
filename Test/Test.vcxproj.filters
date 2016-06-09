@@ -51,6 +51,9 @@
     <ClCompile Include="dialog11.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialog12.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -70,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HouseAndTree.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
