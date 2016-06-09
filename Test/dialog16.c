@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc16(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Cropping and Scaling Images");
-        return TRUE;
+        return SetWindowText(hWnd, L"Cropping and Scaling Images");
     }
     case WM_CTLCOLORDLG:
     {
@@ -59,8 +58,7 @@ INT_PTR CALLBACK DialogProc16(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;

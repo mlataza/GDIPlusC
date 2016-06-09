@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc6(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Joining Lines");
-        return TRUE;
+        return SetWindowText(hWnd, L"Joining Lines");
     }
     case WM_CTLCOLORDLG:
     {
@@ -53,8 +52,7 @@ INT_PTR CALLBACK DialogProc6(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;

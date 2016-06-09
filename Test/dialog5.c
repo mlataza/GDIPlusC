@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc5(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Drawing a Line with Line Caps");
-        return TRUE;
+        return SetWindowText(hWnd, L"Drawing a Line with Line Caps");
     }
     case WM_CTLCOLORDLG:
     {
@@ -48,8 +47,7 @@ INT_PTR CALLBACK DialogProc5(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;

@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc12(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Tiling a Shape with an Image");
-        return TRUE;
+        return SetWindowText(hWnd, L"Tiling a Shape with an Image");
     }
     case WM_CTLCOLORDLG:
     {
@@ -79,8 +78,7 @@ INT_PTR CALLBACK DialogProc12(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;

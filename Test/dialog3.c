@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc3(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Using a Pen to Draw Lines and Rectangles");
-        return TRUE;
+        return SetWindowText(hWnd, L"Using a Pen to Draw Lines and Rectangles");
     }
     case WM_CTLCOLORDLG:
     {
@@ -52,8 +51,7 @@ INT_PTR CALLBACK DialogProc3(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;

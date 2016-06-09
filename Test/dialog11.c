@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc11(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Filling a Shape with an Image Texture");
-        return TRUE;
+        return SetWindowText(hWnd, L"Filling a Shape with an Image Texture");
     }
     case WM_CTLCOLORDLG:
     {
@@ -47,8 +46,7 @@ INT_PTR CALLBACK DialogProc11(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;

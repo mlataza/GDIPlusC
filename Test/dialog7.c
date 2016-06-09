@@ -12,8 +12,7 @@ INT_PTR CALLBACK DialogProc7(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Drawing a Custom Dashed Line");
-        return TRUE;
+        return SetWindowText(hWnd, L"Drawing a Custom Dashed Line");
     }
     case WM_CTLCOLORDLG:
     {
@@ -50,8 +49,7 @@ INT_PTR CALLBACK DialogProc7(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_CLOSE:
     {
-        EndDialog(hWnd, 0);
-        return TRUE;
+        return EndDialog(hWnd, 0);
     }
     default:
         return FALSE;
