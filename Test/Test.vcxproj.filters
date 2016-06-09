@@ -60,6 +60,9 @@
     <ClCompile Include="dialog14.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialog15.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
