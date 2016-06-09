@@ -93,7 +93,8 @@ Sample Samples[] = {
     {L"5. Drawing a Line with Line Caps", DialogProc5},
     {L"6. Joining Lines", DialogProc6},
     {L"7. Drawing a Custom Dashed Line", DialogProc7},
-    {L"8. Drawing a Line Filled with a Texture", DialogProc8}
+    {L"8. Drawing a Line Filled with a Texture", DialogProc8},
+    {L"9. Filling a Shape with a Solid Color", DialogProc9}
 };
 
 #define MARGIN      8
