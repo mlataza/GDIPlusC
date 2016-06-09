@@ -6,7 +6,7 @@
 //
 //  Samples codes are found in dialog(n).c, e.g. dialog1.c.
 //
-//  All samples are based from Microsoft's Using GDI+ article. 
+//  All samples are copied from Microsoft's Using GDI+ article. 
 //  https://msdn.microsoft.com/en-us/library/windows/desktop/ms533802(v=vs.85).aspx
 //---------------------------------------------------------------------------
 
@@ -97,7 +97,8 @@ Sample Samples[] = {
     {L"9. Filling a Shape with a Solid Color", DialogProc9},
     {L"10. Filling a Shape with a Hatch Pattern", DialogProc10},
     {L"11. Filling a Shape with an Image Texture", DialogProc11},
-    {L"12. Tiling a Shape with an Image", DialogProc12}
+    {L"12. Tiling a Shape with an Image", DialogProc12},
+    {L"13. Loading and Displaying Bitmaps", DialogProc13}
 };
 
 #define MARGIN      8

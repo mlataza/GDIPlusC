@@ -151,6 +151,7 @@
     <ClCompile Include="dialog10.c" />
     <ClCompile Include="dialog11.c" />
     <ClCompile Include="dialog12.c" />
+    <ClCompile Include="dialog13.c" />
     <ClCompile Include="dialog2.c" />
     <ClCompile Include="dialog3.c" />
     <ClCompile Include="dialog4.c" />
