@@ -94,7 +94,9 @@ Sample Samples[] = {
     {L"6. Joining Lines", DialogProc6},
     {L"7. Drawing a Custom Dashed Line", DialogProc7},
     {L"8. Drawing a Line Filled with a Texture", DialogProc8},
-    {L"9. Filling a Shape with a Solid Color", DialogProc9}
+    {L"9. Filling a Shape with a Solid Color", DialogProc9},
+    {L"10. Filling a Shape with a Hatch Pattern", DialogProc10},
+    {L"11. Filling a Shape with an Image Texture", DialogProc11}
 };
 
 #define MARGIN      8
@@ -113,7 +115,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
     {
         // Create my list box.
-        hListbox = CreateWindow(L"Listbox", NULL, WS_CHILD | WS_VISIBLE | LBS_STANDARD,
+        hListbox = CreateWindow(L"Listbox", NULL, WS_CHILD | WS_VISIBLE | WS_VSCROLL | WS_BORDER,
                                 MARGIN, MARGIN, 0, 0, hWnd, NULL, NULL, NULL);
 
         int i, pos;
