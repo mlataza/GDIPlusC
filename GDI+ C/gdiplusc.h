@@ -33,7 +33,7 @@ extern "C"
 // Default bezier flattening tolerance in device pixels.
 //--------------------------------------------------------------------------
 
-const float FlatnessDefault = 1.0f / 4.0f;
+static const float FlatnessDefault = 1.0f / 4.0f;
 
 //--------------------------------------------------------------------------
 // Graphics and Container State cookies
