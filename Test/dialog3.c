@@ -42,6 +42,8 @@ INT_PTR CALLBACK DialogProc3(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         Graphics_DrawRectangleI(graphics, blackPen, 10, 50, 100, 50);
 
         // Delete the objects.
+        Pen_Delete(blackPen);
+        Pen_Delete(pen);
         Graphics_Delete(graphics);
 
         EndPaint(hWnd, &ps);

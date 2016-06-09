@@ -150,6 +150,7 @@
     <ClCompile Include="dialog1.c" />
     <ClCompile Include="dialog2.c" />
     <ClCompile Include="dialog3.c" />
+    <ClCompile Include="dialog4.c" />
     <ClCompile Include="program.c" />
   </ItemGroup>
   <ItemGroup>

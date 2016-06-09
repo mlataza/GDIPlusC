@@ -5,6 +5,9 @@
 // GDIPlusC.dll should be in the exe's directory.
 //
 // Samples codes are found in dialog(n).c, e.g. dialog1.c.
+//
+// All samples are based from Microsoft's Using GDI+ article. 
+// https://msdn.microsoft.com/en-us/library/windows/desktop/ms533802(v=vs.85).aspx
 //---------------------------------------------------------------------------
 
 #include "stdafx.h"
@@ -96,7 +99,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                      hWnd, (HMENU)3, NULL, NULL);
         x += 308 + 8;
 
-
+        CreateWindow(L"Button", L"Setting Pen Width and Alignment",
+                     WS_CHILD | WS_VISIBLE, x, y, 308, 50,
+                     hWnd, (HMENU)4, NULL, NULL);
+        x += 308 + 8;
 
         return 0;
     }
@@ -114,6 +120,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
             case 3:
                 DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc3);
+                break;
+            case 4:
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc4);
                 break;
             }
         }
