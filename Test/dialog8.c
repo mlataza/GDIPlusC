@@ -13,7 +13,7 @@ INT_PTR CALLBACK DialogProc8(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_INITDIALOG:
     {
-        SetWindowText(hWnd, L"Drawing a LIne Filled with a Texture");
+        SetWindowText(hWnd, L"Drawing a Line Filled with a Texture");
         return TRUE;
     }
     case WM_CTLCOLORDLG:

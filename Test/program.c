@@ -12,6 +12,11 @@
 
 #include "stdafx.h"
 
+// Enable visual styles.
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, 
@@ -53,7 +58,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                              L"GDI+ C Samples",
                              WS_OVERLAPPEDWINDOW,
                              CW_USEDEFAULT, CW_USEDEFAULT,
-                             CW_USEDEFAULT, CW_USEDEFAULT,
+                             500, 500,
                              NULL, NULL, NULL, NULL);
 
     ShowWindow(hWnd, SW_SHOW);
@@ -74,92 +79,92 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     return (int)msg.wParam;
 }
 
+typedef struct
+{
+    WCHAR szSampleTitle[80];
+    DLGPROC fnDlgProc;
+} Sample;
+
+Sample Samples[] = {
+    {L"1. Drawing a Line", DialogProc1},
+    {L"2. Drawing a String", DialogProc2},
+    {L"3. Using a Pen to Draw Lines and Rectangles", DialogProc3},
+    {L"4. Setting Pen Width and Alignment", DialogProc4},
+    {L"5. Drawing a Line with Line Caps", DialogProc5},
+    {L"6. Joining Lines", DialogProc6},
+    {L"7. Drawing a Custom Dashed Line", DialogProc7},
+    {L"8. Drawing a Line Filled with a Texture", DialogProc8}
+};
+
+#define MARGIN      8
+#define BTN_WIDTH   100
+#define BTN_HEIGHT  30
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+    static HWND hListbox;
+    static HWND hButton;
+    static HWND hDlg;
+    static int cx, cy;
+
     switch (msg)
     {
     case WM_CREATE:
     {
-        // Create my buttons.
-        INT x = 8, y = 8;
+        // Create my list box.
+        hListbox = CreateWindow(L"Listbox", NULL, WS_CHILD | WS_VISIBLE | LBS_STANDARD,
+                                MARGIN, MARGIN, 0, 0, hWnd, NULL, NULL, NULL);
 
-        CreateWindow(L"Button", L"Drawing a Line", WS_CHILD | WS_VISIBLE,
-                     x, y, 150, 50, 
-                     hWnd, (HMENU)1, NULL, NULL);
-        x += 150 + 8;
+        int i, pos;
+        // Add the items into the list box.
+        for (i = 0; i < ARRAYSIZE(Samples); i++)
+        {
+            pos = (int)SendMessage(hListbox, LB_ADDSTRING, 0,
+                (LPARAM)Samples[i].szSampleTitle);
 
-        CreateWindow(L"Button", L"Drawing a String", WS_CHILD | WS_VISIBLE,
-                     x, y, 150, 50,
-                     hWnd, (HMENU)2, NULL, NULL);
-        x = 8;
-        y += 50 + 8;
+            SendMessage(hListbox, LB_SETITEMDATA, pos, (LPARAM)i);
+        }
 
-        CreateWindow(L"Button", L"Using a Pen to Draw Lines and Rectangles",
-                     WS_CHILD | WS_VISIBLE, x, y, 308, 50,
-                     hWnd, (HMENU)3, NULL, NULL);
-        x += 308 + 8;
+        // Create the button.
+        hButton = CreateWindow(L"Button", L"Open Sample", WS_CHILD | WS_VISIBLE | WS_BORDER,
+                               0, 0, BTN_WIDTH, BTN_HEIGHT, hWnd, (HMENU)1, 
+                               NULL, NULL);
 
-        CreateWindow(L"Button", L"Setting Pen Width and Alignment",
-                     WS_CHILD | WS_VISIBLE, x, y, 308, 50,
-                     hWnd, (HMENU)4, NULL, NULL);
-        x += 308 + 8;
+        return 0;
+    }
+    case WM_SIZE:
+    {
+        cx = LOWORD(lParam);
+        cy = HIWORD(lParam);
 
-        CreateWindow(L"Button", L"Drawing a Line with Line Caps",
-                     WS_CHILD | WS_VISIBLE, x, y, 308, 50,
-                     hWnd, (HMENU)5, NULL, NULL);
-        x = 8;
-        y += 50 + 8;
 
-        CreateWindow(L"Button", L"Joining Lines",
-                     WS_CHILD | WS_VISIBLE, x, y, 150, 50,
-                     hWnd, (HMENU)6, NULL, NULL);
-        x += 150 + 8;
+        HDWP hdwp = BeginDeferWindowPos(2);
 
-        CreateWindow(L"Button", L"Drawing a Custom Dashed Line",
-                     WS_CHILD | WS_VISIBLE, x, y, 250, 50,
-                     hWnd, (HMENU)7, NULL, NULL);
-        x += 250 + 8;
+        hdwp = DeferWindowPos(hdwp, hListbox, NULL, 0, 0,
+                              cx - 2 * MARGIN, cy - (3 * MARGIN) - BTN_HEIGHT,
+                              SWP_NOMOVE);
 
-        CreateWindow(L"Button", L"Drawing a Line Filled with a Texture",
-                     WS_CHILD | WS_VISIBLE, x, y, 250, 50,
-                     hWnd, (HMENU)8, NULL, NULL);
-        x = 8;
-        y += 50 + 8;
+        hdwp = DeferWindowPos(hdwp, hButton, NULL, cx - BTN_WIDTH - MARGIN,
+                              cy - BTN_HEIGHT - MARGIN, 0, 0, SWP_NOSIZE);
+
+        EndDeferWindowPos(hdwp);
 
         return 0;
     }
     case WM_COMMAND:
     {
-        if (HIWORD(wParam) == BN_CLICKED)
+        if (LOWORD(wParam) == 1)
         {
-            switch (LOWORD(wParam))
+            int lbItem = (int)SendMessage(hListbox, LB_GETCURSEL, 0, 0);
+            int i = (int)SendMessage(hListbox, LB_GETITEMDATA, lbItem, 0);
+
+            if (i != -1)
             {
-            case 1:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc1);
-                break;
-            case 2:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc2);
-                break;
-            case 3:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc3);
-                break;
-            case 4:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc4);
-                break;
-            case 5:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc5);
-                break;
-            case 6:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc6);
-                break;
-            case 7:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc7);
-                break;
-            case 8:
-                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc8);
-                break;
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd,
+                          Samples[i].fnDlgProc); 
             }
         }
+
         return 0;
     }
     case WM_DESTROY:
