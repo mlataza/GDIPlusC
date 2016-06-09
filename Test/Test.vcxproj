@@ -154,6 +154,8 @@
     <ClCompile Include="dialog13.c" />
     <ClCompile Include="dialog14.c" />
     <ClCompile Include="dialog15.c" />
+    <ClCompile Include="dialog16.c" />
+    <ClCompile Include="dialog17.c" />
     <ClCompile Include="dialog2.c" />
     <ClCompile Include="dialog3.c" />
     <ClCompile Include="dialog4.c" />
@@ -173,6 +175,7 @@
     <ResourceCompile Include="Test.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Apple.gif" />
     <Image Include="HouseAndTree.png" />
     <Image Include="Texture1.jpg" />
   </ItemGroup>

@@ -63,6 +63,12 @@
     <ClCompile Include="dialog15.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialog16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog17.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -85,6 +91,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="HouseAndTree.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Apple.gif">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

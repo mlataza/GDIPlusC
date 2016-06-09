@@ -81,8 +81,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 typedef struct
 {
-    WCHAR szSampleTitle[80];
-    DLGPROC fnDlgProc;
+    WCHAR szSampleTitle[80]; // The title of the sample.
+    DLGPROC fnDlgProc; // The associated dialog procedure for that sample.
 } Sample;
 
 Sample Samples[] = {
@@ -100,7 +100,9 @@ Sample Samples[] = {
     {L"12. Tiling a Shape with an Image", DialogProc12},
     {L"13. Loading and Displaying Bitmaps", DialogProc13},
     {L"14. Loading and Displaying Metafiles", DialogProc14},
-    {L"15. Recording Metafiles", DialogProc15}
+    {L"15. Recording Metafiles", DialogProc15},
+    {L"16. Cropping and Scaling Images", DialogProc16},
+    {L"17. Rotating, Reflecting, and Skewing Images", DialogProc17}
 };
 
 #define MARGIN      8
