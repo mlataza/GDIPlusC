@@ -98,7 +98,8 @@ Sample Samples[] = {
     {L"10. Filling a Shape with a Hatch Pattern", DialogProc10},
     {L"11. Filling a Shape with an Image Texture", DialogProc11},
     {L"12. Tiling a Shape with an Image", DialogProc12},
-    {L"13. Loading and Displaying Bitmaps", DialogProc13}
+    {L"13. Loading and Displaying Bitmaps", DialogProc13},
+    {L"14. Loading and Displaying Metafiles", DialogProc14}
 };
 
 #define MARGIN      8

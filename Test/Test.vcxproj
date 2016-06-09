@@ -152,6 +152,7 @@
     <ClCompile Include="dialog11.c" />
     <ClCompile Include="dialog12.c" />
     <ClCompile Include="dialog13.c" />
+    <ClCompile Include="dialog14.c" />
     <ClCompile Include="dialog2.c" />
     <ClCompile Include="dialog3.c" />
     <ClCompile Include="dialog4.c" />
@@ -173,6 +174,9 @@
   <ItemGroup>
     <Image Include="HouseAndTree.png" />
     <Image Include="Texture1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SampleMetafile.emf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
