@@ -1,13 +1,13 @@
 //---------------------------------------------------------------------------
 //
-// This is a simple demonstration on how to use the GDI+ C library.
+//  This is a simple demonstration on how to use the GDI+ C library.
 //
-// GDIPlusC.dll should be in the exe's directory.
+//  GDIPlusC.dll should be in the exe's directory.
 //
-// Samples codes are found in dialog(n).c, e.g. dialog1.c.
+//  Samples codes are found in dialog(n).c, e.g. dialog1.c.
 //
-// All samples are based from Microsoft's Using GDI+ article. 
-// https://msdn.microsoft.com/en-us/library/windows/desktop/ms533802(v=vs.85).aspx
+//  All samples are based from Microsoft's Using GDI+ article. 
+//  https://msdn.microsoft.com/en-us/library/windows/desktop/ms533802(v=vs.85).aspx
 //---------------------------------------------------------------------------
 
 #include "stdafx.h"
@@ -118,7 +118,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         CreateWindow(L"Button", L"Drawing a Custom Dashed Line",
                      WS_CHILD | WS_VISIBLE, x, y, 250, 50,
                      hWnd, (HMENU)7, NULL, NULL);
-        x += 150 + 8;
+        x += 250 + 8;
+
+        CreateWindow(L"Button", L"Drawing a Line Filled with a Texture",
+                     WS_CHILD | WS_VISIBLE, x, y, 250, 50,
+                     hWnd, (HMENU)8, NULL, NULL);
+        x = 8;
+        y += 50 + 8;
 
         return 0;
     }
@@ -148,6 +154,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
             case 7:
                 DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc7);
+                break;
+            case 8:
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc8);
                 break;
             }
         }
