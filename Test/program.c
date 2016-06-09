@@ -113,7 +113,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         CreateWindow(L"Button", L"Joining Lines",
                      WS_CHILD | WS_VISIBLE, x, y, 150, 50,
                      hWnd, (HMENU)6, NULL, NULL);
+        x += 150 + 8;
 
+        CreateWindow(L"Button", L"Drawing a Custom Dashed Line",
+                     WS_CHILD | WS_VISIBLE, x, y, 250, 50,
+                     hWnd, (HMENU)7, NULL, NULL);
         x += 150 + 8;
 
         return 0;
@@ -141,6 +145,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
             case 6:
                 DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc6);
+                break;
+            case 7:
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc7);
                 break;
             }
         }
