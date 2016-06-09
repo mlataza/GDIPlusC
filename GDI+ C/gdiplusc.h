@@ -3143,9 +3143,9 @@ SolidBrush_Create(
     OUT SolidBrush ** solidBrush
 );
 
-#define SolidBrush_Delete(solidBrush) Brush_Delete(solidBrush)
+#define SolidBrush_Delete Brush_Delete
 
-#define SolidBrush_Clone(solidBrush, clone) Brush_Clone(solidBrush, clone)
+#define SolidBrush_Clone Brush_Clone
 
 Color WINAPI
 SolidBrush_GetColor(IN SolidBrush * solidBrush);
@@ -3212,9 +3212,9 @@ TextureBrush_Create2I(
     OUT TextureBrush ** textureBrush
 );
 
-#define TextureBrush_Delete(textureBrush) Brush_Delete(textureBrush)
+#define TextureBrush_Delete Brush_Delete
 
-#define TextureBrush_Clone(textureBrush, clone) Brush_Clone(textureBrush, clone)
+#define TextureBrush_Clone Brush_Clone
 
 Status WINAPI
 TextureBrush_SetTransform(
@@ -3336,9 +3336,9 @@ LinearGradientBrush_CreateFromRectWithAngleI(
     OUT LinearGradientBrush ** lgBrush
 );
 
-#define LinearGradientBrush_Delete(lgBrush) Brush_Delete(lgBrush)
+#define LinearGradientBrush_Delete Brush_Delete
 
-#define LinearGradientBrush_Clone(lgBrush, clone) Brush_Clone(lgBrush, clone)
+#define LinearGradientBrush_Clone Brush_Clone
 
 Status WINAPI
 LinearGradientBrush_SetLinearColors(
@@ -3503,9 +3503,10 @@ HatchBrush_Create(
     OUT HatchBrush ** hatchBrush
 );
 
-#define HatchBrush_Delete(hatchBrush) Brush_Delete(hatchBrush)
+// TESTING
+#define HatchBrush_Delete Brush_Delete
 
-#define HatchBrush_Clone(hatchBrush, clone) Brush_Clone(hatchBrush, clone)
+#define HatchBrush_Clone Brush_Clone 
 
 HatchStyle WINAPI
 HatchBrush_GetHatchStyle(IN HatchBrush * hatchBrush);
@@ -4563,9 +4564,9 @@ PathGradientBrush_CreateFromPath(
     OUT PathGradientBrush ** pgBrush
 );
 
-#define PathGradientBrush_Delete(pgBrush) Brush_Delete(pgBrush)
+#define PathGradientBrush_Delete Brush_Delete
 
-#define PathGradientBrush_Clone(pgBrush, clone) Brush_Clone(pgBrush, clone)
+#define PathGradientBrush_Clone Brush_Clone
 
 Color WINAPI
 PathGradientBrush_GetCenterColor(IN PathGradientBrush * pgBrush);
@@ -4861,29 +4862,18 @@ CustomLineCap_Clone(
 
 typedef EmptyClass AdjustableArrowCap;
 
-#define AdjustableArrowCap_Delete(arrowCap) CustomLineCap_Delete(arrowCap)
-#define AdjustableArrowCap_SetStrokeCaps(arrowCap, startCap, endCap) \
-    CustomLineCap_SetStrokeCaps(arrowCap, startCap, endCap)
-#define AdjustableArrowCap_GetStrokeCaps(arrowCap, startCap, endCap) \
-    CustomLineCap_GetStrokeCaps(arrowCap, startCap, endCap)
-#define AdjustableArrowCap_SetStrokeJoin(arrowCap, lineJoin) \
-    CustomLineCap_SetStrokeJoin(arrowCap, lineJoin)
-#define AdjustableArrowCap_GetStrokeJoin(arrowCap) \
-    CustomLineCap_GetStrokeJoin(arrowCap)
-#define AdjustableArrowCap_SetBaseCap(arrowCap, baseCap) \
-    CustomLineCap_SetBaseCap(arrowCap, baseCap)
-#define AdjustableArrowCap_GetBaseCap(arrowCap) \
-    CustomLineCap_GetBaseCap(arrowCap)
-#define AdjustableArrowCap_SetBaseInset(arrowCap, inset) \
-    CustomLineCap_SetBaseInset(arrowCap, inset)
-#define AdjustableArrowCap_GetBaseInset(arrowCap) \
-    CustomLineCap_GetBaseInset(arrowCap)
-#define AdjustableArrowCap_SetWidthScale(arrowCap, widthScale) \
-    CustomLineCap_SetWidthScale(arrowCap, widthScale)
-#define AdjustableArrowCap_GetWidthScale(arrowCap) \
-    CustomLineCap_GetWidthScale(arrowCap)
-#define AdjustableArrowCap_Clone(arrowCap, clonedCap) \
-    CustomLineCap_Clone(arrowCap, clonedCap)
+#define AdjustableArrowCap_Delete CustomLineCap_Delete
+#define AdjustableArrowCap_SetStrokeCaps CustomLineCap_SetStrokeCaps
+#define AdjustableArrowCap_GetStrokeCaps CustomLineCap_GetStrokeCaps
+#define AdjustableArrowCap_SetStrokeJoin CustomLineCap_SetStrokeJoin
+#define AdjustableArrowCap_GetStrokeJoin CustomLineCap_GetStrokeJoin
+#define AdjustableArrowCap_SetBaseCap CustomLineCap_SetBaseCap
+#define AdjustableArrowCap_GetBaseCap  CustomLineCap_GetBaseCap
+#define AdjustableArrowCap_SetBaseInset CustomLineCap_SetBaseInset
+#define AdjustableArrowCap_GetBaseInset CustomLineCap_GetBaseInset
+#define AdjustableArrowCap_SetWidthScale CustomLineCap_SetWidthScale
+#define AdjustableArrowCap_GetWidthScale CustomLineCap_GetWidthScale
+#define AdjustableArrowCap_Clone CustomLineCap_Clone
 
 Status WINAPI
 AdjustableArrowCap_Create(
@@ -6490,68 +6480,41 @@ Image_SetPropertyItem(
     IN const PropertyItem * item
 );
 
-#define Bitmap_Dispose(bitmap) Image_Dispose(bitmap)
-#define Bitmap_Clone(bitmap, clone) Image_Clone(bitmap, clone)
-#define Bitmap_GetEncoderParameterListSize(bitmap, clsidEncoder) \
-    Image_GetEncoderParameterListSize(bitmap, clsidEncoder)
-#define Bitmap_GetEncoderParameterList(bitmap, clsidEncoder, size, buffer) \
-    Image_GetEncoderParameterList(bitmap, clsidEncoder, size, buffer)
-#define Bitmap_SaveToFile(bitmap, filename, clsidEncoder, encoderParams) \
-    Image_SaveToFile(bitmap, filename, clsidEncoder, encoderParams)
-#define Bitmap_SaveToStream(bitmap, stream, clsidEncoder, encoderParams) \
-    Image_SaveToStream(bitmap, stream, clsidEncoder, encoderParams)
-#define Bitmap_SaveAdd(bitmap, encoderParams) \
-    Image_SaveAdd(bitmap, encoderParams)
-#define Bitmap_SaveAddImage(bitmap, newBitmap, encoderParams) \
-    Image_SaveAddImage(bitmap, newBitmap, encoderParams)
-#define Bitmap_GetType(bitmap) Image_GetType(bitmap)
-#define Bitmap_GetPhysicalDimension(bitmap, size) \
-    Image_GetPhysicalDimension(bitmap, size)
-#define Bitmap_GetBounds(bitmap, srcRect, srcUnit) \
-    Image_GetBounds(bitmap, srcRect, srcUnit)
-#define Bitmap_GetWidth(bitmap) Image_GetWidth(bitmap)
-#define Bitmap_GetHeight(bitmap) Image_GetHeight(bitmap)
-#define Bitmap_GetHorizontalResolution(bitmap) \
-    Image_GetHorizontalResolution(bitmap)
-#define Bitmap_GetVerticalResolution(bitmap) \
-    Image_GetVerticalResolution(bitmap)
-#define Bitmap_GetFlags(bitmap) Image_GetFlags(bitmap)
-#define Bitmap_GetRawFormat(bitmap, format) Image_GetRawFormat(bitmap, format)
-#define Bitmap_GetPixelFormat(bitmap) Image_GetPixelFormat(bitmap)
-#define Bitmap_GetPaletteSize(bitmap) Image_GetPaletteSize(bitmap)
-#define Bitmap_GetPalette(bitmap, palette, size) \
-    Image_GetPalette(bitmap, palette, size)
-#define Bitmap_SetPalette(bitmap, palette) Image_SetPalette(bitmap, palette)
-#define Bitmap_GetThumbnailImage \
-    (bitmap, thumbWidth, thumbHeight, callback, callbackData, thumbnailImage) \
-    Image_GetThumbnailImage \
-    (bitmap, thumbWidth, thumbHeight, callback, callbackData, thumbnailImage)
-#define Bitmap_GetFrameDimensionsCount(bitmap) \
-    Image_GetFrameDimensionsCount(bitmap)
-#define Bitmap_GetFrameDimensionsList(bitmap, dimensionIDs, count) \
-    Image_GetFrameDimensionsList(bitmap, dimensionIDs, count)
-#define Bitmap_GetFrameCount(bitmap, dimensionID) \
-    Image_GetFrameCount(bitmap, dimensionID)
-#define Bitmap_SelectActiveFrame(bitmap, dimensionID, frameIndex) \
-    Image_SelectActiveFrame(bitmap, dimensionID, frameIndex)
-#define Bitmap_RotateFlip(bitmap, rotateFlipType) \
-    Image_RotateFlip(bitmap, rotateFlipType)
-#define Bitmap_GetPropertyCount(bitmap) Image_GetPropertyCount(bitmap)
-#define Bitmap_GetPropertyIdList(bitmap, numOfProperty, list) \
-    Image_GetPropertyIdList(bitmap, numOfProperty, list)
-#define Bitmap_GetPropertyItemSize(bitmap, propId) \
-    Image_GetPropertyItemSize(bitmap, propId)
-#define Bitmap_GetPropertyItem(bitmap, propId, propSize, buffer) \
-    Image_GetPropertyItem(bitmap, propId, propSize, buffer)
-#define Bitmap_GetPropertySize(bitmap, totalBufferSize, numProperties) \
-    Image_GetPropertySize(bitmap, totalBufferSize, numProperties)
-#define Bitmap_GetAllPropertyItems \
-    (bitmap, totalBufferSize, numProperties, allItems) \
-    Image_GetAllPropertyItems(bitmap, totalBufferSize, numProperties, allItems)
-#define Bitmap_RemovePropertyItem(image, propId) \
-    Image_RemovePropertyItem(image, propId)
-#define Bitmap_SetPropertyItem(bitmap, item) \
-    Image_SetPropertyItem(bitmap, item)
+#define Bitmap_Dispose Image_Dispose
+#define Bitmap_Clone Image_Clone
+#define Bitmap_GetEncoderParameterListSize Image_GetEncoderParameterListSize 
+#define Bitmap_GetEncoderParameterList Image_GetEncoderParameterList 
+#define Bitmap_SaveToFile Image_SaveToFile 
+#define Bitmap_SaveToStream Image_SaveToStream 
+#define Bitmap_SaveAdd Image_SaveAdd 
+#define Bitmap_SaveAddImage Image_SaveAddImage 
+#define Bitmap_GetType Image_GetType 
+#define Bitmap_GetPhysicalDimension Image_GetPhysicalDimension 
+#define Bitmap_GetBounds Image_GetBounds 
+#define Bitmap_GetWidth Image_GetWidth 
+#define Bitmap_GetHeight Image_GetHeight 
+#define Bitmap_GetHorizontalResolution Image_GetHorizontalResolution 
+#define Bitmap_GetVerticalResolution Image_GetVerticalResolution 
+#define Bitmap_GetFlags Image_GetFlags 
+#define Bitmap_GetRawFormat Image_GetRawFormat 
+#define Bitmap_GetPixelFormat Image_GetPixelFormat 
+#define Bitmap_GetPaletteSize Image_GetPaletteSize 
+#define Bitmap_GetPalette Image_GetPalette 
+#define Bitmap_SetPalette Image_SetPalette 
+#define Bitmap_GetThumbnailImage Image_GetThumbnailImage 
+#define Bitmap_GetFrameDimensionsCount Image_GetFrameDimensionsCount 
+#define Bitmap_GetFrameDimensionsList Image_GetFrameDimensionsList 
+#define Bitmap_GetFrameCount Image_GetFrameCount 
+#define Bitmap_SelectActiveFrame Image_SelectActiveFrame 
+#define Bitmap_RotateFlip Image_RotateFlip 
+#define Bitmap_GetPropertyCount Image_GetPropertyCount 
+#define Bitmap_GetPropertyIdList Image_GetPropertyIdList 
+#define Bitmap_GetPropertyItemSize Image_GetPropertyItemSize 
+#define Bitmap_GetPropertyItem Image_GetPropertyItem 
+#define Bitmap_GetPropertySize Image_GetPropertySize 
+#define Bitmap_GetAllPropertyItems Image_GetAllPropertyItems 
+#define Bitmap_RemovePropertyItem Image_RemovePropertyItem 
+#define Bitmap_SetPropertyItem Image_SetPropertyItem 
 
 Status WINAPI
 Bitmap_CreateFromFile(
@@ -6702,68 +6665,41 @@ Bitmap_SetResolution(
 *
 \**************************************************************************/
 
-#define Metafile_Dispose(metafile) Image_Dispose(metafile)
-#define Metafile_Clone(metafile, clone) Image_Clone(metafile, clone)
-#define Metafile_GetEncoderParameterListSize(metafile, clsidEncoder) \
-    Image_GetEncoderParameterListSize(metafile, clsidEncoder)
-#define Metafile_GetEncoderParameterList(metafile, clsidEncoder, size, buffer) \
-    Image_GetEncoderParameterList(metafile, clsidEncoder, size, buffer)
-#define Metafile_SaveToFile(metafile, filename, clsidEncoder, encoderParams) \
-    Image_SaveToFile(metafile, filename, clsidEncoder, encoderParams)
-#define Metafile_SaveToStream(metafile, stream, clsidEncoder, encoderParams) \
-    Image_SaveToStream(metafile, stream, clsidEncoder, encoderParams)
-#define Metafile_SaveAdd(metafile, encoderParams) \
-    Image_SaveAdd(metafile, encoderParams)
-#define Metafile_SaveAddImage(metafile, newMetafile, encoderParams) \
-    Image_SaveAddImage(metafile, newMetafile, encoderParams)
-#define Metafile_GetType(metafile) Image_GetType(metafile)
-#define Metafile_GetPhysicalDimension(metafile, size) \
-    Image_GetPhysicalDimension(metafile, size)
-#define Metafile_GetBounds(metafile, srcRect, srcUnit) \
-    Image_GetBounds(metafile, srcRect, srcUnit)
-#define Metafile_GetWidth(metafile) Image_GetWidth(metafile)
-#define Metafile_GetHeight(metafile) Image_GetHeight(metafile)
-#define Metafile_GetHorizontalResolution(metafile) \
-    Image_GetHorizontalResolution(metafile)
-#define Metafile_GetVerticalResolution(metafile) \
-    Image_GetVerticalResolution(metafile)
-#define Metafile_GetFlags(metafile) Image_GetFlags(metafile)
-#define Metafile_GetRawFormat(metafile, format) Image_GetRawFormat(metafile, format)
-#define Metafile_GetPixelFormat(metafile) Image_GetPixelFormat(metafile)
-#define Metafile_GetPaletteSize(metafile) Image_GetPaletteSize(metafile)
-#define Metafile_GetPalette(metafile, palette, size) \
-    Image_GetPalette(metafile, palette, size)
-#define Metafile_SetPalette(metafile, palette) Image_SetPalette(metafile, palette)
-#define Metafile_GetThumbnailImage \
-    (metafile, thumbWidth, thumbHeight, callback, callbackData, thumbnailImage) \
-    Image_GetThumbnailImage \
-    (metafile, thumbWidth, thumbHeight, callback, callbackData, thumbnailImage)
-#define Metafile_GetFrameDimensionsCount(metafile) \
-    Image_GetFrameDimensionsCount(metafile)
-#define Metafile_GetFrameDimensionsList(metafile, dimensionIDs, count) \
-    Image_GetFrameDimensionsList(metafile, dimensionIDs, count)
-#define Metafile_GetFrameCount(metafile, dimensionID) \
-    Image_GetFrameCount(metafile, dimensionID)
-#define Metafile_SelectActiveFrame(metafile, dimensionID, frameIndex) \
-    Image_SelectActiveFrame(metafile, dimensionID, frameIndex)
-#define Metafile_RotateFlip(metafile, rotateFlipType) \
-    Image_RotateFlip(metafile, rotateFlipType)
-#define Metafile_GetPropertyCount(metafile) Image_GetPropertyCount(metafile)
-#define Metafile_GetPropertyIdList(metafile, numOfProperty, list) \
-    Image_GetPropertyIdList(metafile, numOfProperty, list)
-#define Metafile_GetPropertyItemSize(metafile, propId) \
-    Image_GetPropertyItemSize(metafile, propId)
-#define Metafile_GetPropertyItem(metafile, propId, propSize, buffer) \
-    Image_GetPropertyItem(metafile, propId, propSize, buffer)
-#define Metafile_GetPropertySize(metafile, totalBufferSize, numProperties) \
-    Image_GetPropertySize(metafile, totalBufferSize, numProperties)
-#define Metafile_GetAllPropertyItems \
-    (metafile, totalBufferSize, numProperties, allItems) \
-    Image_GetAllPropertyItems(metafile, totalBufferSize, numProperties, allItems)
-#define Metafile_RemovePropertyItem(image, propId) \
-    Image_RemovePropertyItem(image, propId)
-#define Metafile_SetPropertyItem(metafile, item) \
-    Image_SetPropertyItem(metafile, item)
+#define Metafile_Dispose Image_Dispose 
+#define Metafile_Clone Image_Clone 
+#define Metafile_GetEncoderParameterListSize Image_GetEncoderParameterListSize 
+#define Metafile_GetEncoderParameterList Image_GetEncoderParameterList 
+#define Metafile_SaveToFile Image_SaveToFile 
+#define Metafile_SaveToStream Image_SaveToStream 
+#define Metafile_SaveAdd Image_SaveAdd 
+#define Metafile_SaveAddImage Image_SaveAddImage 
+#define Metafile_GetType Image_GetType 
+#define Metafile_GetPhysicalDimension Image_GetPhysicalDimension 
+#define Metafile_GetBounds Image_GetBounds 
+#define Metafile_GetWidth Image_GetWidth 
+#define Metafile_GetHeight Image_GetHeight 
+#define Metafile_GetHorizontalResolution Image_GetHorizontalResolution 
+#define Metafile_GetVerticalResolution Image_GetVerticalResolution 
+#define Metafile_GetFlags Image_GetFlags 
+#define Metafile_GetRawFormat Image_GetRawFormat 
+#define Metafile_GetPixelFormat Image_GetPixelFormat 
+#define Metafile_GetPaletteSize Image_GetPaletteSize 
+#define Metafile_GetPalette Image_GetPalette 
+#define Metafile_SetPalette Image_SetPalette 
+#define Metafile_GetThumbnailImage Image_GetThumbnailImage
+#define Metafile_GetFrameDimensionsCount Image_GetFrameDimensionsCount 
+#define Metafile_GetFrameDimensionsList Image_GetFrameDimensionsList 
+#define Metafile_GetFrameCount Image_GetFrameCount 
+#define Metafile_SelectActiveFrame Image_SelectActiveFrame 
+#define Metafile_RotateFlip Image_RotateFlip 
+#define Metafile_GetPropertyCount Image_GetPropertyCount 
+#define Metafile_GetPropertyIdList Image_GetPropertyIdList 
+#define Metafile_GetPropertyItemSize Image_GetPropertyItemSize 
+#define Metafile_GetPropertyItem Image_GetPropertyItem 
+#define Metafile_GetPropertySize Image_GetPropertySize 
+#define Metafile_GetAllPropertyItems Image_GetAllPropertyItems 
+#define Metafile_RemovePropertyItem Image_RemovePropertyItem 
+#define Metafile_SetPropertyItem Image_SetPropertyItem 
 
 Status WINAPI
 Metafile_CreateFromWmf(

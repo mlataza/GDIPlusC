@@ -34,7 +34,7 @@ INT_PTR CALLBACK DialogProc16(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // 30 percent taller than the original image.
         // Put the upper-left corner of the destination
         // rectangle at (150, 20).
-        Rect destRect = { 150, 20, 1.3 * width, 1.3 * height };
+        Rect destRect = { 150, 20, (INT)(1.3 * width), (INT)(1.3 * height) };
         // Draw the image unaltered with its upper-left corner at (0, 0).
         Graphics_DrawImage(graphics, image, 0, 0);
         // Draw a portion of the image. Scale that portion of the image
@@ -44,8 +44,8 @@ INT_PTR CALLBACK DialogProc16(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             image,
             &destRect,
             0, 0,               // upper-left corner of source rectangle
-            0.75 * width,       // width of source rectangle
-            0.75 * height,      // height of source rectangle
+            (INT)(0.75 * width),       // width of source rectangle
+            (INT)(0.75 * height),      // height of source rectangle
             UnitPixel,
             NULL, NULL, NULL
         );

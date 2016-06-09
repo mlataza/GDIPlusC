@@ -2,11 +2,11 @@
 //
 //  This is a simple demonstration on how to use the GDI+ C library.
 //
-//  GDIPlusC.dll should be in the exe's directory.
+//  GDIPlusC.dll should be in the .exe's directory.
 //
 //  Samples codes are found in dialog(n).c, e.g. dialog1.c.
 //
-//  All samples are copied from Microsoft's Using GDI+ article. 
+//  All samples are copied from Microsoft's Using GDI+ (Windows) article. 
 //  https://msdn.microsoft.com/en-us/library/windows/desktop/ms533802(v=vs.85).aspx
 //---------------------------------------------------------------------------
 
