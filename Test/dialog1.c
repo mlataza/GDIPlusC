@@ -15,6 +15,11 @@ INT_PTR CALLBACK DialogProc1(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         SetWindowText(hWnd, L"Drawing a Line");
         return TRUE;
     }
+    case WM_CTLCOLORDLG:
+    {
+        // Set the background color to white.
+        return (INT_PTR)GetStockObject(WHITE_BRUSH);
+    }
     case WM_PAINT:
     {
         PAINTSTRUCT ps;

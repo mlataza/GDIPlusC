@@ -18,7 +18,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     wcex.cbClsExtra = 0;
     wcex.cbSize = sizeof(wcex);
     wcex.cbWndExtra = 0;
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hIcon = NULL;
     wcex.hIconSm = NULL;
@@ -77,6 +77,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
     case WM_CREATE:
     {
+        // Create my buttons.
         INT x = 8, y = 8;
 
         CreateWindow(L"Button", L"Drawing a Line", WS_CHILD | WS_VISIBLE,
@@ -87,6 +88,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         CreateWindow(L"Button", L"Drawing a String", WS_CHILD | WS_VISIBLE,
                      x, y, 150, 50,
                      hWnd, (HMENU)2, NULL, NULL);
+        x = 8;
+        y += 50 + 8;
+
+        CreateWindow(L"Button", L"Using a Pen to Draw Lines and Rectangles",
+                     WS_CHILD | WS_VISIBLE, x, y, 308, 50,
+                     hWnd, (HMENU)3, NULL, NULL);
+        x += 308 + 8;
+
+
 
         return 0;
     }
@@ -101,6 +111,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
             case 2:
                 DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc2);
+                break;
+            case 3:
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc3);
                 break;
             }
         }
