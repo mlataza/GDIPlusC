@@ -177,6 +177,7 @@
   <ItemGroup>
     <Image Include="Apple.gif" />
     <Image Include="HouseAndTree.png" />
+    <Image Include="Stripes.bmp" />
     <Image Include="Texture1.jpg" />
   </ItemGroup>
   <ItemGroup>
