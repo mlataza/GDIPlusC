@@ -50,7 +50,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     GdipluscStartup(&token, &input, NULL); // Call this function to start GDI+ C.
 
     HWND hWnd = CreateWindow(L"GDIPlusC Test Window",
-                             L"Testing",
+                             L"GDI+ C Samples",
                              WS_OVERLAPPEDWINDOW,
                              CW_USEDEFAULT, CW_USEDEFAULT,
                              CW_USEDEFAULT, CW_USEDEFAULT,
@@ -107,7 +107,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         CreateWindow(L"Button", L"Drawing a Line with Line Caps",
                      WS_CHILD | WS_VISIBLE, x, y, 308, 50,
                      hWnd, (HMENU)5, NULL, NULL);
-        x += 308 + 8;
+        x = 8;
+        y += 50 + 8;
+
+        CreateWindow(L"Button", L"Joining Lines",
+                     WS_CHILD | WS_VISIBLE, x, y, 150, 50,
+                     hWnd, (HMENU)6, NULL, NULL);
+
+        x += 150 + 8;
 
         return 0;
     }
@@ -131,6 +138,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
             case 5:
                 DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc5);
+                break;
+            case 6:
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc6);
                 break;
             }
         }
