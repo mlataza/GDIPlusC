@@ -104,6 +104,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                      hWnd, (HMENU)4, NULL, NULL);
         x += 308 + 8;
 
+        CreateWindow(L"Button", L"Drawing a Line with Line Caps",
+                     WS_CHILD | WS_VISIBLE, x, y, 308, 50,
+                     hWnd, (HMENU)5, NULL, NULL);
+        x += 308 + 8;
+
         return 0;
     }
     case WM_COMMAND:
@@ -123,6 +128,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 break;
             case 4:
                 DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc4);
+                break;
+            case 5:
+                DialogBox(NULL, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, DialogProc5);
                 break;
             }
         }
