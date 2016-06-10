@@ -85,6 +85,7 @@ typedef struct
     DLGPROC fnDlgProc; // The associated dialog procedure for that sample.
 } Sample;
 
+// Each DialogProc contains the code for the certain sample.
 Sample Samples[] = {
     {L"1. Drawing a Line", DialogProc1},
     {L"2. Drawing a String", DialogProc2},
@@ -105,7 +106,9 @@ Sample Samples[] = {
     {L"17. Rotating, Reflecting, and Skewing Images", DialogProc17},
     {L"18. Using Interpolation Mode to Control Image Quality During Scaling", DialogProc18},
     {L"19. Creating Thumbnail Images", DialogProc19},
-    {L"20. Using a Cached Bitmap to Improve Performance", DialogProc20}
+    {L"20. Using a Cached Bitmap to Improve Performance", DialogProc20},
+    {L"21. Improving Performance by Avoiding Automatic Scaling", DialogProc21},
+    {L"22. Reading and Writing Metadata", DialogProc22}
 };
 
 #define MARGIN      8

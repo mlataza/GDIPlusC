@@ -78,6 +78,12 @@
     <ClCompile Include="dialog20.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialog21.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog22.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -109,6 +115,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="GrapeBunch.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Metadata.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Metadata2.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

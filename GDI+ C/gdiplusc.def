@@ -81,6 +81,34 @@ EXPORTS
 	MetafileHeader_IsDisplay
 	MetafileHeader_GetWmfHeader
 	MetafileHeader_GetEmfHeader
+; gdiplusimaging.cpp
+	ImageFormatUndefined
+	ImageFormatMemoryBMP
+	ImageFormatBMP
+	ImageFormatEMF
+	ImageFormatWMF
+	ImageFormatJPEG
+	ImageFormatPNG
+	ImageFormatGIF
+	ImageFormatTIFF
+	ImageFormatEXIF
+	ImageFormatIcon
+	FrameDimensionTime
+	FrameDimensionResolution
+	FrameDimensionPage
+	FormatIDImageInformation
+	FormatIDJpegAppHeaders
+	EncoderCompression
+	EncoderColorDepth
+	EncoderScanMethod
+	EncoderVersion
+	EncoderRenderMethod
+	EncoderQuality
+	EncoderTransformation
+	EncoderLuminanceTable
+	EncoderChrominanceTable
+	EncoderSaveFlag
+	CodecIImageBytes
 ; gdiplusimageattributes.cpp
 	ImageAttributes_Create
 	ImageAttributes_Clone
