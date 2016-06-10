@@ -108,7 +108,8 @@ Sample Samples[] = {
     {L"19. Creating Thumbnail Images", DialogProc19},
     {L"20. Using a Cached Bitmap to Improve Performance", DialogProc20},
     {L"21. Improving Performance by Avoiding Automatic Scaling", DialogProc21},
-    {L"22. Reading and Writing Metadata", DialogProc22}
+    {L"22. Reading and Writing Metadata", DialogProc22},
+    {L"23. Listing Installed Encoders", DialogProc23}
 };
 
 #define MARGIN      8

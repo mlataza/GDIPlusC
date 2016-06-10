@@ -84,6 +84,9 @@
     <ClCompile Include="dialog22.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dialog23.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
