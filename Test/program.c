@@ -46,7 +46,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     //
     GdiplusStartupInput input;
     input.GdiplusVersion = 1; 
-    input.DebugEventCallback = NULL; 
+    input.DebugEventCallback = NULL;
     input.SuppressBackgroundThread = FALSE;  
     input.SuppressExternalCodecs = FALSE;
 
@@ -61,7 +61,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                              500, 500,
                              NULL, NULL, NULL, NULL);
 
-    ShowWindow(hWnd, SW_SHOW);
+    ShowWindow(hWnd, nShowCmd);
     UpdateWindow(hWnd);
 
     MSG msg;

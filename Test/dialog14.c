@@ -23,14 +23,12 @@ INT_PTR CALLBACK DialogProc14(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // The Metafile object, which is based from the Image object provides
         // more specialized methods for recording, displaying, and examining 
         // vector images.
-        Image * image;
-        Image_LoadFromFile(L"SampleMetafile.emf", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"SampleMetafile.emf", FALSE);
 
         Graphics_DrawImage(graphics, image, 60, 10);
 

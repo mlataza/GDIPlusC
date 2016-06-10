@@ -22,13 +22,11 @@ INT_PTR CALLBACK DialogProc1(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hWnd, &ps);
+        HDC hdc = BeginPaint(hWnd, &ps); 
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics); 
+        Graphics * graphics = Graphics_CreateFromHDC(hdc); 
 
-        Pen * pen;
-        Pen_Create(ARGB(255, 0, 0, 255), 1.0f, &pen);
+        Pen * pen = Pen_Create(ARGB(255, 0, 0, 255), 1.0f);
 
         // Draw the line using integer coordinates.
         // Functions that end with 'I' uses integer coordinates.

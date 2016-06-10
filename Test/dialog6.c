@@ -23,8 +23,7 @@ INT_PTR CALLBACK DialogProc6(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // A line join is the common area that is formed by two lines whose 
         // ends meet or overlap. Windows GDI+ provides four line join styles: 
@@ -34,11 +33,9 @@ INT_PTR CALLBACK DialogProc6(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // to all the connected lines in the path.
 
         // The following draws a beveled line join.
-        GraphicsPath * path;
-        GraphicsPath_Create(FillModeAlternate, &path);
+        GraphicsPath * path = GraphicsPath_Create(FillModeAlternate);
 
-        Pen * penJoin;
-        Pen_Create(ARGB(255, 0, 0, 255), 8, &penJoin);
+        Pen * penJoin = Pen_Create(ARGB(255, 0, 0, 255), 8);
 
         GraphicsPath_StartFigure(path);
         GraphicsPath_AddLine(path, 50, 200, 100, 200);
@@ -46,6 +43,11 @@ INT_PTR CALLBACK DialogProc6(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
         Pen_SetLineJoin(penJoin, LineJoinBevel);
         Graphics_DrawPath(graphics, penJoin, path); // Draw the path.
+
+        // Delete objects.
+        Pen_Delete(penJoin);
+        GraphicsPath_Delete(path);
+        Graphics_Delete(graphics);
 
         EndPaint(hWnd, &ps);
         return TRUE;

@@ -30,17 +30,13 @@ INT_PTR CALLBACK DialogProc8(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // to a Pen constructor. The image associated with the texture brush is 
         // used to tile the plane(invisibly), and when the pen draws a line or 
         // curve, the stroke of the pen uncovers certain pixels of the tiled texture.
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
-        Image * image;
-        Image_LoadFromFile(L"Texture1.jpg", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"Texture1.jpg", FALSE);
 
-        TextureBrush * tBrush;
-        TextureBrush_Create(image, WrapModeTile, &tBrush);
+        TextureBrush * tBrush = TextureBrush_Create(image, WrapModeTile);
 
-        Pen * texturedPen;
-        Pen_Create2(tBrush, 30, &texturedPen);
+        Pen * texturedPen = Pen_Create2(tBrush, 30);
 
         // Draw the image first.
         Graphics_DrawImageRectI(graphics, image, 0, 0, Image_GetWidth(image),

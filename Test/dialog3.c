@@ -23,20 +23,17 @@ INT_PTR CALLBACK DialogProc3(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // Drawing a line from (20, 10) to (300, 100).
-        Pen * pen;
-        Pen_Create(ARGB(255, 0, 0, 0), 1.0f, &pen); 
+        Pen * pen = Pen_Create(ARGB(255, 0, 0, 0), 1.0f); 
         // ARGB(255, 0, 0, 0) - correspond to alpha, red, green, and blue components of the color
         // 1.0f - width of the pen in pixels
         
         Graphics_DrawLineI(graphics, pen, 20, 10, 300, 100);
 
         // Draw a rectangle with its upper-left corner at (10, 50), width of 100 and a height of 50.
-        Pen * blackPen;
-        Pen_Create(ARGB(255, 0, 0, 0), 5.0f, &blackPen); // Width of the pen is 5.0 pixels.
+        Pen * blackPen = Pen_Create(ARGB(255, 0, 0, 0), 5.0f); // Width of the pen is 5.0 pixels.
 
         Graphics_DrawRectangleI(graphics, blackPen, 10, 50, 100, 50);
 

@@ -23,8 +23,7 @@ INT_PTR CALLBACK DialogProc12(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // Just as tiles can be placed next to each other to cover a floor, 
         // rectangular images can be placed next to each other to fill (tile) a
@@ -40,14 +39,11 @@ INT_PTR CALLBACK DialogProc12(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // make the image flip from one grid position to next. The flipping can
         // be horizontal, vertical, or both.
 
-        Image * image;
-        Image_LoadFromFile(L"HouseAndTree.png", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"HouseAndTree.png", FALSE);
 
-        TextureBrush * tBrush;
-        TextureBrush_Create(image, WrapModeTile, &tBrush);
+        TextureBrush * tBrush = TextureBrush_Create(image, WrapModeTile);
 
-        Pen * pen;
-        Pen_Create(Black, 1.0f, &pen);
+        Pen * pen = Pen_Create(Black, 1.0f);
 
         // Draw a tiled image with WrapModeTile (default) orientation.
         Graphics_FillRectangle(graphics, tBrush, 0, 0, 200, 200);

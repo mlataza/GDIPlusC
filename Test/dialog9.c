@@ -23,16 +23,14 @@ INT_PTR CALLBACK DialogProc9(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // To fill a shape with with a solid color, create a SolidBrush object 
         // and then pass the pointer as an argument to one of the fill methods
         // of the Graphics object. 
         // 
         // The following shows how to fill an ellipse with the color red.
-        SolidBrush * solidBrush;
-        SolidBrush_Create(ARGB(255, 255, 0, 0), &solidBrush);
+        SolidBrush * solidBrush = SolidBrush_Create(ARGB(255, 255, 0, 0));
 
         Graphics_FillEllipse(graphics, solidBrush, 0, 0, 100, 60);
 

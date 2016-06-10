@@ -23,16 +23,13 @@ INT_PTR CALLBACK DialogProc11(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // You can fill a closed shape with a texture by using the Image object
         // and the TextureBrush object.
-        Image * image;
-        Image_LoadFromFile(L"Texture1.jpg", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"Texture1.jpg", FALSE);
 
-        TextureBrush * tBrush;
-        TextureBrush_Create(image, WrapModeTile, &tBrush);
+        TextureBrush * tBrush = TextureBrush_Create(image, WrapModeTile);
 
         Graphics_FillEllipse(graphics, tBrush, 0, 0, 100, 60);
 

@@ -23,8 +23,7 @@ INT_PTR CALLBACK DialogProc7(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // To draw a custom dashed line, put the lengths of the dashes and spaces
         // in an array and pass the address of the array as an argument to the 
@@ -34,8 +33,7 @@ INT_PTR CALLBACK DialogProc7(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // The displayed dashes alternate in length between 25 and 75, and the 
         // spaces alternate in length between 10 and 20.
         REAL dashValues[4] = { 5, 2, 15, 4 };
-        Pen * blackPen;
-        Pen_Create(ARGB(255, 0, 0, 0), 5, &blackPen);
+        Pen * blackPen = Pen_Create(ARGB(255, 0, 0, 0), 5);
         Pen_SetDashPattern(blackPen, dashValues, 4); // Set the dash pattern.
 
         Graphics_DrawLine(graphics, blackPen, 5, 5, 405, 5);

@@ -38,19 +38,16 @@ INT_PTR CALLBACK DialogProc15(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // display the metafile by creating a new Graphics object and passing the
         // address of the Metafile to the Graphics_DrawImage function.
 
-        Metafile * metafile;
-        Metafile_CreateRecordFileName(L"SampleMetafile.emf", hdc, NULL,
-                                      MetafileFrameUnitGdi, EmfTypeEmfOnly,
-                                      L"", &metafile);
+        Metafile * metafile = Metafile_CreateRecordFileName(
+            L"SampleMetafile.emf", hdc, NULL, MetafileFrameUnitGdi, 
+            EmfTypeEmfOnly, L"");
         {
-            Graphics * graphics;
-            Graphics_CreateFromImage(metafile, &graphics); // Load the metafile into the Graphics object.
-
+            // Load the metafile into the Graphics object.
+            Graphics * graphics = Graphics_CreateFromImage(metafile); 
+            
             // Create the drawing tools.
-            Pen * pen;
-            Pen_Create(ARGB(255, 0, 255, 0), 1.0f, &pen);
-            SolidBrush * solidBrush;
-            SolidBrush_Create(ARGB(255, 0, 0, 255), &solidBrush);
+            Pen * pen = Pen_Create(ARGB(255, 0, 255, 0), 1.0f);
+            SolidBrush * solidBrush = SolidBrush_Create(ARGB(255, 0, 0, 255));
 
             // Add a rectangle and an ellipse to the metafile.
             Graphics_DrawRectangle(graphics, pen, 50, 10, 25, 75);
@@ -61,10 +58,8 @@ INT_PTR CALLBACK DialogProc15(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             Graphics_DrawEllipse(graphics, pen, 150, 10, 25, 75);
 
             // Add some text (drawn with antialiasing) to the metafile.
-            FontFamily * fontFamily;
-            FontFamily_CreateFromName(L"Arial", NULL, &fontFamily);
-            Font * font;
-            Font_Create(fontFamily, 24, FontStyleRegular, UnitPixel, &font);
+            FontFamily * fontFamily = FontFamily_CreateFromName(L"Arial", NULL);
+            Font * font = Font_Create(fontFamily, 24, FontStyleRegular, UnitPixel);
 
             Graphics_SetTextRenderingHint(graphics, TextRenderingHintAntiAlias);
             Graphics_RotateTransform(graphics, 30.0f, MatrixOrderPrepend); // Default MatrixOrder is MatrixOrderPrepend.
@@ -83,8 +78,7 @@ INT_PTR CALLBACK DialogProc15(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         }
 
         // Play back the metafile.
-        Graphics * playbackGraphics;
-        Graphics_CreateFromHDC(hdc, &playbackGraphics);
+        Graphics * playbackGraphics = Graphics_CreateFromHDC(hdc);
         Graphics_DrawImage(playbackGraphics, metafile, 200, 100);
 
         // To record a metafile, you must construct a Graphics object based on

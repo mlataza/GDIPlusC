@@ -25,17 +25,13 @@ INT_PTR CALLBACK DialogProc2(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         HDC hdc = BeginPaint(hWnd, &ps);
 
         // Create all the GDI+ objects first.
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
-        SolidBrush * brush;
-        SolidBrush_Create(ARGB(255, 0, 0, 255), &brush);
+        SolidBrush * brush = SolidBrush_Create(ARGB(255, 0, 0, 255));
 
-        FontFamily * fontFamily;
-        FontFamily_CreateFromName(L"Times New Roman", NULL, &fontFamily);
+        FontFamily * fontFamily = FontFamily_CreateFromName(L"Times New Roman", NULL);
 
-        Font * font;
-        Font_Create(fontFamily, 24, FontStyleRegular, UnitPixel, &font);
+        Font * font = Font_Create(fontFamily, 24, FontStyleRegular, UnitPixel);
 
         PointF pointF = { 10.0f, 20.0f };
 

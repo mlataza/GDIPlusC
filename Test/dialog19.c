@@ -24,19 +24,16 @@ INT_PTR CALLBACK DialogProc19(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
-        Image * image;
-        Image_LoadFromFile(L"Compass.png", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"Apple.gif", FALSE);
 
         // Create a thumbnail image with a width of 60 and height of 60.
-        Image * thumbnail;
-        Image_GetThumbnailImage(image, 60, 60, NULL, NULL, &thumbnail);
+        Image * thumbnail = Image_GetThumbnailImage(image, 60, 60, NULL, NULL);
 
         Graphics_DrawImageRect(graphics, thumbnail, 10.0f, 10.0f,
             (REAL)Image_GetWidth(thumbnail),
-                               (REAL)Image_GetHeight(thumbnail));
+            (REAL)Image_GetHeight(thumbnail));
 
         // Delete objects.
         Image_Dispose(thumbnail);

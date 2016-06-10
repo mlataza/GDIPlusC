@@ -24,8 +24,7 @@ INT_PTR CALLBACK DialogProc4(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // When creating a Pen, you could set the width of the pen. You can also
         // change the width of the Pen using Pen_SetWidth.
@@ -33,11 +32,9 @@ INT_PTR CALLBACK DialogProc4(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // A theoretical line has a width of zero. When you draw a line, the pixels
         // are centered on the theoretical line. The following draws a specified line
         // twice: once with a black pen of width 1 and once with a green pen of width 10.
-        Pen * blackPen;
-        Pen_Create(ARGB(255, 0, 0, 0), 1.0f, &blackPen);
+        Pen * blackPen = Pen_Create(ARGB(255, 0, 0, 0), 1.0f);
 
-        Pen * greenPen;
-        Pen_Create(ARGB(255, 0, 255, 0), 1.0f, &greenPen); // You could replace 1.0f with 10.0f.
+        Pen * greenPen = Pen_Create(ARGB(255, 0, 255, 0), 1.0f); // You could replace 1.0f with 10.0f.
         Pen_SetWidth(greenPen, 10.0f);
         Pen_SetAlignment(greenPen, PenAlignmentCenter);
 
@@ -55,8 +52,8 @@ INT_PTR CALLBACK DialogProc4(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
         // The following draws a specified rectangle twice: once with a black pen
         // of width 1 and once with a green pen of width 10.
-        Pen_Create(ARGB(255, 0, 0, 0), 1.0f, &blackPen);
-        Pen_Create(ARGB(255, 0, 255, 0), 10.0f, &greenPen);
+        blackPen = Pen_Create(ARGB(255, 0, 0, 0), 1.0f);
+        greenPen = Pen_Create(ARGB(255, 0, 255, 0), 10.0f);
         Pen_SetAlignment(greenPen, PenAlignmentCenter);
 
         // Draw the rectangle with green pen.

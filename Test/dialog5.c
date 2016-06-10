@@ -23,16 +23,14 @@ INT_PTR CALLBACK DialogProc5(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // You can specify line caps for the start of a line (start cap), the 
         // end of a line (end cap), or the dashes of a dashed line (dash cap).
         // The following example draws a line with an arrowhead at one end and 
         // a round cap at the other end:
 
-        Pen * pen;
-        Pen_Create(ARGB(255, 0, 0, 255), 8, &pen);
+        Pen * pen = Pen_Create(ARGB(255, 0, 0, 255), 8);
         Pen_SetStartCap(pen, LineCapArrowAnchor);
         Pen_SetEndCap(pen, LineCapRoundAnchor);
 

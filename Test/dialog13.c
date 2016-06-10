@@ -23,13 +23,11 @@ INT_PTR CALLBACK DialogProc13(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // To display a raster image on the screen, you need an Image object and
         // a Graphics object. 
-        Image * image;
-        Image_LoadFromFile(L"HouseAndTree.png", FALSE, &image); 
+        Image * image = Image_LoadFromFile(L"HouseAndTree.png", FALSE); 
         // The image file is relative to the current directory.
         
         Graphics_DrawImage(graphics, image, 10, 10);
@@ -40,8 +38,7 @@ INT_PTR CALLBACK DialogProc13(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // displaying, and manipulating raster images.
 
         HICON hIcon = LoadIcon(NULL, IDI_APPLICATION);
-        Bitmap * bitmap;
-        Bitmap_CreateFromHICON(hIcon, &bitmap);
+        Bitmap * bitmap = Bitmap_CreateFromHICON(hIcon);
         Graphics_DrawImage(graphics, bitmap, 100, 10);
 
         // Delete objects.

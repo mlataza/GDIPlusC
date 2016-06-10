@@ -178,7 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Apple.gif" />
-    <Image Include="Compass.png" />
     <Image Include="GrapeBunch.bmp" />
     <Image Include="HouseAndTree.png" />
     <Image Include="Stripes.bmp" />

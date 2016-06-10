@@ -35,11 +35,9 @@ INT_PTR CALLBACK DialogProc18(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // The InterpolationModeNearestNeighbor is the lowest quality mode, and
         // InterpolationModeHighQualityBicubic is the highest quality mode.
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
-        Image * image;
-        Image_LoadFromFile(L"GrapeBunch.bmp", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"GrapeBunch.bmp", FALSE);
         UINT width = Image_GetWidth(image);
         UINT height = Image_GetHeight(image);
         Rect destRect;

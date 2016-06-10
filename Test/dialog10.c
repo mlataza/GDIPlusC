@@ -24,16 +24,15 @@ INT_PTR CALLBACK DialogProc10(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // A hatch pattern is made from two colors: one of the background and one
         // for the lines that form the pattern over the background. To fill a 
         // closed shape with a hatch pattern, use a HatchBrush object.
 
-        HatchBrush * hBrush;
-        HatchBrush_Create(HatchStyleHorizontal, ARGB(255, 255, 0, 0),
-                          ARGB(255, 128, 255, 255), &hBrush);
+        HatchBrush * hBrush = HatchBrush_Create(HatchStyleHorizontal,
+                                                ARGB(255, 255, 0, 0),
+                                                ARGB(255, 128, 255, 255));
 
         // ARGB(255, 255, 0, 0) is the fore color.
         // ARGB(255, 128, 255, 255) is the background color.

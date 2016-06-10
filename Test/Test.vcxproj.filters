@@ -108,9 +108,6 @@
     <Image Include="GrapeBunch.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Compass.png">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="SampleMetafile.emf">

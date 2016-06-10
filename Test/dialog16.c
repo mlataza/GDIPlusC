@@ -23,11 +23,9 @@ INT_PTR CALLBACK DialogProc16(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
-        Image * image;
-        Image_LoadFromFile(L"Apple.gif", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"Apple.gif", FALSE);
         UINT width = Image_GetWidth(image);
         UINT height = Image_GetHeight(image);
         // Make the destination rectangle 30 percent wider and

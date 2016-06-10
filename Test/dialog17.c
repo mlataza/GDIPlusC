@@ -24,8 +24,7 @@ INT_PTR CALLBACK DialogProc17(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
-        Graphics * graphics;
-        Graphics_CreateFromHDC(hdc, &graphics);
+        Graphics * graphics = Graphics_CreateFromHDC(hdc);
 
         // You can rotate, reflect, and skew an image by specifying the destination
         // points for the upper-left, upper-right, and lower-left corners of the
@@ -43,8 +42,7 @@ INT_PTR CALLBACK DialogProc17(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             {110, 100},
             {250, 30}
         };
-        Image * image;
-        Image_LoadFromFile(L"Stripes.bmp", FALSE, &image);
+        Image * image = Image_LoadFromFile(L"Stripes.bmp", FALSE);
 
         // Draw the image unaltered with its upper-left corner at (0, 0).
         Graphics_DrawImageRect(graphics, image, 0, 0, 100, 50);
