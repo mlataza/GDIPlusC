@@ -1,40 +1,71 @@
 #include "stdafx.h"
 
-Status WINAPI
+FontFamily * WINAPI
 FontFamily_CreateFromName(IN const WCHAR * name,
-                          IN FontCollection * fontCollection,
-                          OUT FontFamily ** fontFamily
+                          IN FontCollection * fontCollection
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateFontFamilyFromName(
+    FontFamily * fontFamily;
+
+    if (Gdiplus::DllExports::GdipCreateFontFamilyFromName(
         name,
         (Gdiplus::GpFontCollection *)fontCollection,
-        (Gdiplus::GpFontFamily **)fontFamily
-    );
+        (Gdiplus::GpFontFamily **)&fontFamily) == Gdiplus::Ok)
+    {
+        return fontFamily;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-FontFamily_GenericSansSerif(OUT FontFamily ** fontFamily)
+FontFamily * WINAPI
+FontFamily_GenericSansSerif()
 {
-    return (Status)Gdiplus::DllExports::GdipGetGenericFontFamilySansSerif(
-        (Gdiplus::GpFontFamily **)fontFamily
-    );
+    FontFamily * fontFamily;
+
+    if (Gdiplus::DllExports::GdipGetGenericFontFamilySansSerif(
+        (Gdiplus::GpFontFamily **)&fontFamily) == Gdiplus::Ok)
+    {
+        return fontFamily;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-FontFamily_GenericSerif(OUT FontFamily ** fontFamily)
+FontFamily * WINAPI
+FontFamily_GenericSerif()
 {
-    return (Status)Gdiplus::DllExports::GdipGetGenericFontFamilySerif(
-        (Gdiplus::GpFontFamily **)fontFamily
-    );
+    FontFamily * fontFamily;
+
+    if (Gdiplus::DllExports::GdipGetGenericFontFamilySerif(
+        (Gdiplus::GpFontFamily **)&fontFamily) == Gdiplus::Ok)
+    {
+        return fontFamily;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-FontFamily_GenericMonospace(OUT FontFamily ** fontFamily)
+FontFamily * WINAPI
+FontFamily_GenericMonospace()
 {
-    return (Status)Gdiplus::DllExports::GdipGetGenericFontFamilyMonospace(
-        (Gdiplus::GpFontFamily **)fontFamily
-    );
+    FontFamily * fontFamily;
+
+    if (Gdiplus::DllExports::GdipGetGenericFontFamilyMonospace(
+        (Gdiplus::GpFontFamily **)&fontFamily) == Gdiplus::Ok)
+    {
+        return fontFamily;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -45,15 +76,21 @@ FontFamily_Delete(IN FontFamily * fontFamily)
     );
 }
 
-Status WINAPI
-FontFamily_Clone(IN FontFamily * fontFamily,
-                 OUT FontFamily ** clonedFamily
-)
+FontFamily * WINAPI
+FontFamily_Clone(IN FontFamily * fontFamily)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneFontFamily(
+    FontFamily * clonedFamily;
+
+    if (Gdiplus::DllExports::GdipCloneFontFamily(
         (Gdiplus::GpFontFamily *)fontFamily,
-        (Gdiplus::GpFontFamily **)clonedFamily
-    );
+        (Gdiplus::GpFontFamily **)&clonedFamily) == Gdiplus::Ok)
+    {
+        return clonedFamily;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

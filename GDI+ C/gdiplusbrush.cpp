@@ -8,13 +8,21 @@ Brush_Delete(IN Brush * brush)
     );
 }
 
-Status WINAPI
-Brush_Clone(IN Brush * brush, OUT Brush ** clone)
+Brush * WINAPI
+Brush_Clone(IN Brush * brush)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneBrush(
+    Brush * clone;
+
+    if (Gdiplus::DllExports::GdipCloneBrush(
         (Gdiplus::GpBrush *)brush,
-        (Gdiplus::GpBrush **)clone
-    );
+        (Gdiplus::GpBrush **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 BrushType WINAPI
@@ -30,13 +38,21 @@ Brush_GetType(IN Brush * brush)
     return type;
 }
 
-Status WINAPI
-SolidBrush_Create(IN Color color, OUT SolidBrush ** solidBrush)
+SolidBrush * WINAPI
+SolidBrush_Create(IN Color color)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateSolidFill(
+    SolidBrush * solidBrush;
+
+    if (Gdiplus::DllExports::GdipCreateSolidFill(
         Color_GetValue(color),
-        (Gdiplus::GpSolidFill **)solidBrush
-    );
+        (Gdiplus::GpSolidFill **)&solidBrush) == Gdiplus::Ok)
+    {
+        return solidBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Color WINAPI
@@ -61,94 +77,128 @@ SolidBrush_SetColor(IN SolidBrush * solidBrush, IN Color color)
     );
 }
 
-Status WINAPI
-TextureBrush_Create(IN Image * image, IN WrapMode wrapMode,
-                    OUT TextureBrush ** textureBrush
-)
+TextureBrush * WINAPI
+TextureBrush_Create(IN Image * image, IN WrapMode wrapMode)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateTexture(
+    TextureBrush * textureBrush;
+
+    if (Gdiplus::DllExports::GdipCreateTexture(
         (Gdiplus::GpImage *)image,
         (Gdiplus::GpWrapMode)wrapMode,
-        (Gdiplus::GpTexture **)textureBrush
-    );
+        (Gdiplus::GpTexture **)&textureBrush) == Gdiplus::Ok)
+    {
+        return textureBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_CreateIA(IN Image * image,
                       IN const RectF * dstRect,
-                      IN const ImageAttributes * imageAttributes,
-                      OUT TextureBrush ** textureBrush
+                      IN const ImageAttributes * imageAttributes
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateTextureIA(
+    TextureBrush * textureBrush;
+
+    if (Gdiplus::DllExports::GdipCreateTextureIA(
         (Gdiplus::GpImage *)image,
         (GDIPCONST Gdiplus::GpImageAttributes *)imageAttributes,
         dstRect->X,
         dstRect->Y,
         dstRect->Width,
         dstRect->Height,
-        (Gdiplus::GpTexture **)textureBrush
-    );
+        (Gdiplus::GpTexture **)&textureBrush) == Gdiplus::Ok)
+    {
+        return textureBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_CreateIAI(IN Image * image,
-                      IN const Rect * dstRect,
-                      IN const ImageAttributes * imageAttributes,
-                      OUT TextureBrush ** textureBrush
+                       IN const Rect * dstRect,
+                       IN const ImageAttributes * imageAttributes
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateTextureIAI(
+    TextureBrush * textureBrush;
+
+    if (Gdiplus::DllExports::GdipCreateTextureIAI(
         (Gdiplus::GpImage *)image,
         (GDIPCONST Gdiplus::GpImageAttributes *)imageAttributes,
         dstRect->X,
         dstRect->Y,
         dstRect->Width,
         dstRect->Height,
-        (Gdiplus::GpTexture **)textureBrush
-    );
+        (Gdiplus::GpTexture **)&textureBrush) == Gdiplus::Ok)
+    {
+        return textureBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_Create2(IN Image * image,
                      IN WrapMode wrapMode,
                      IN REAL dstX,
                      IN REAL dstY,
                      IN REAL dstWidth,
-                     IN REAL dstHeight,
-                     OUT TextureBrush ** textureBrush
+                     IN REAL dstHeight
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateTexture2(
+    TextureBrush * textureBrush;
+
+    if (Gdiplus::DllExports::GdipCreateTexture2(
         (Gdiplus::GpImage *)image,
         (Gdiplus::GpWrapMode)wrapMode,
         dstX,
         dstY,
         dstWidth,
         dstHeight,
-        (Gdiplus::GpTexture **)textureBrush
-    );
+        (Gdiplus::GpTexture **)&textureBrush) == Gdiplus::Ok)
+    {
+        return textureBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_Create2I(IN Image * image,
                       IN WrapMode wrapMode,
                       IN INT dstX,
                       IN INT dstY,
                       IN INT dstWidth,
-                      IN INT dstHeight,
-                      OUT TextureBrush ** textureBrush
+                      IN INT dstHeight
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateTexture2I(
+    TextureBrush * textureBrush;
+
+    if (Gdiplus::DllExports::GdipCreateTexture2I(
         (Gdiplus::GpImage *)image,
         (Gdiplus::GpWrapMode)wrapMode,
         dstX,
         dstY,
         dstWidth,
         dstHeight,
-        (Gdiplus::GpTexture **)textureBrush
-    );
+        (Gdiplus::GpTexture **)&textureBrush) == Gdiplus::Ok)
+    {
+        return textureBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -270,116 +320,158 @@ TextureBrush_GetImage(IN TextureBrush * textureBrush)
     return image;
 }
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_Create(IN const PointF * point1,
                            IN const PointF * point2,
                            IN Color color1,
-                           IN Color color2,
-                           OUT LinearGradientBrush ** lgBrush
+                           IN Color color2
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateLineBrush(
+    LinearGradientBrush * lgBrush;
+
+    if (Gdiplus::DllExports::GdipCreateLineBrush(
         (GDIPCONST Gdiplus::GpPointF *)point1,
         (GDIPCONST Gdiplus::GpPointF *)point2,
         Color_GetValue(color1),
         Color_GetValue(color2),
         (Gdiplus::GpWrapMode)WrapModeTile,
-        (Gdiplus::GpLineGradient **)lgBrush
-    );
+        (Gdiplus::GpLineGradient **)&lgBrush) == Gdiplus::Ok)
+    {
+        return lgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateI(IN const Point * point1,
                             IN const Point * point2,
                             IN Color color1,
-                            IN Color color2,
-                            OUT LinearGradientBrush ** lgBrush
+                            IN Color color2
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateLineBrushI(
+    LinearGradientBrush * lgBrush;
+
+    if (Gdiplus::DllExports::GdipCreateLineBrushI(
         (GDIPCONST Gdiplus::GpPoint *)point1,
         (GDIPCONST Gdiplus::GpPoint *)point2,
         Color_GetValue(color1),
         Color_GetValue(color2),
         (Gdiplus::GpWrapMode)WrapModeTile,
-        (Gdiplus::GpLineGradient **)lgBrush
-    );
+        (Gdiplus::GpLineGradient **)&lgBrush) == Gdiplus::Ok)
+    {
+        return lgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRect(IN const RectF * rect,
                                    IN Color color1,
                                    IN Color color2,
-                                   IN LinearGradientMode mode,
-                                   OUT LinearGradientBrush ** lgBrush
+                                   IN LinearGradientMode mode
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateLineBrushFromRect(
+    LinearGradientBrush * lgBrush;
+
+    if (Gdiplus::DllExports::GdipCreateLineBrushFromRect(
         (GDIPCONST Gdiplus::GpRectF *)rect,
         Color_GetValue(color1),
         Color_GetValue(color2),
         (Gdiplus::LinearGradientMode)mode,
         (Gdiplus::GpWrapMode)WrapModeTile,
-        (Gdiplus::GpLineGradient **)lgBrush
-    );
+        (Gdiplus::GpLineGradient **)&lgBrush) == Gdiplus::Ok)
+    {
+        return lgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRectI(IN const Rect * rect,
                                     IN Color color1,
                                     IN Color color2,
-                                    IN LinearGradientMode mode,
-                                    OUT LinearGradientBrush ** lgBrush
+                                    IN LinearGradientMode mode
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateLineBrushFromRectI(
+    LinearGradientBrush * lgBrush;
+
+    if (Gdiplus::DllExports::GdipCreateLineBrushFromRectI(
         (GDIPCONST Gdiplus::GpRect *)rect,
         Color_GetValue(color1),
         Color_GetValue(color2),
         (Gdiplus::LinearGradientMode)mode,
         (Gdiplus::GpWrapMode)WrapModeTile,
-        (Gdiplus::GpLineGradient **)lgBrush
-    );
+        (Gdiplus::GpLineGradient **)&lgBrush) == Gdiplus::Ok)
+    {
+        return lgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRectWithAngle(IN const RectF * rect,
                                             IN Color color1,
                                             IN Color color2,
                                             IN REAL angle,
-                                            IN BOOL isAngleScalable,
-                                            OUT LinearGradientBrush ** lgBrush
+                                            IN BOOL isAngleScalable
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateLineBrushFromRectWithAngle(
+    LinearGradientBrush * lgBrush;
+
+    if (Gdiplus::DllExports::GdipCreateLineBrushFromRectWithAngle(
         (GDIPCONST Gdiplus::GpRectF *)rect,
         Color_GetValue(color1),
         Color_GetValue(color2),
         angle,
         isAngleScalable,
         (Gdiplus::GpWrapMode)WrapModeTile,
-        (Gdiplus::GpLineGradient **)lgBrush
-    );
+        (Gdiplus::GpLineGradient **)&lgBrush) == Gdiplus::Ok)
+    {
+        return lgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRectWithAngleI(IN const Rect * rect,
                                              IN Color color1,
                                              IN Color color2,
                                              IN REAL angle,
-                                             IN BOOL isAngleScalable, 
-                                             OUT LinearGradientBrush ** lgBrush
+                                             IN BOOL isAngleScalable
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateLineBrushFromRectWithAngleI(
+    LinearGradientBrush * lgBrush;
+
+    if (Gdiplus::DllExports::GdipCreateLineBrushFromRectWithAngleI(
         (GDIPCONST Gdiplus::GpRect *)rect,
         Color_GetValue(color1),
         Color_GetValue(color2),
         angle,
         isAngleScalable,
         (Gdiplus::GpWrapMode)WrapModeTile,
-        (Gdiplus::GpLineGradient **)lgBrush
-    );
+        (Gdiplus::GpLineGradient **)&lgBrush) == Gdiplus::Ok)
+    {
+        return lgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -679,19 +771,26 @@ LinearGradientBrush_GetWrapMode(IN LinearGradientBrush * lgBrush)
     return wrapMode;
 }
 
-Status WINAPI
+HatchBrush * WINAPI
 HatchBrush_Create(IN HatchStyle hatchStyle,
                   IN Color foreColor,
-                  IN Color backColor, // = 0x00000000
-                  OUT HatchBrush ** hatchBrush
+                  IN Color backColor
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateHatchBrush(
+    HatchBrush * hatchBrush;
+
+    if (Gdiplus::DllExports::GdipCreateHatchBrush(
         (Gdiplus::GpHatchStyle)hatchStyle,
         Color_GetValue(foreColor),
         Color_GetValue(backColor),
-        (Gdiplus::GpHatch **)hatchBrush
-    );
+        (Gdiplus::GpHatch **)&hatchBrush) == Gdiplus::Ok)
+    {
+        return hatchBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 HatchStyle WINAPI

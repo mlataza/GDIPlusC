@@ -1,186 +1,261 @@
 #include "stdafx.h"
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromWmf(IN HMETAFILE hWmf,
                        IN const WmfPlaceableFileHeader * wmfPlaceableFileHeader,
-                       IN BOOL deleteWmf,
-                       OUT Metafile ** metafile
+                       IN BOOL deleteWmf
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMetafileFromWmf(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipCreateMetafileFromWmf(
         hWmf, deleteWmf,
         (GDIPCONST Gdiplus::WmfPlaceableFileHeader *)wmfPlaceableFileHeader,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromEmf(IN HENHMETAFILE hEmf,
-                       IN BOOL deleteEmf,
-                       OUT Metafile ** metafile
+                       IN BOOL deleteEmf
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMetafileFromEmf(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipCreateMetafileFromEmf(
         hEmf, deleteEmf,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Metafile_CreateFromFile(IN const WCHAR * filename,
-                        OUT Metafile ** metafile
-)
+Metafile * WINAPI
+Metafile_CreateFromFile(IN const WCHAR * filename)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMetafileFromFile(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipCreateMetafileFromFile(
         filename,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromWmfFile(IN const WCHAR * filename,
-                     IN const WmfPlaceableFileHeader * wmfPlaceableFileHeader,
-                     OUT Metafile ** metafile
+                           IN const WmfPlaceableFileHeader * wmfPlaceableFileHeader
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMetafileFromWmfFile(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipCreateMetafileFromWmfFile(
         filename,
         (GDIPCONST Gdiplus::WmfPlaceableFileHeader *)wmfPlaceableFileHeader,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Metafile_CreateFromStream(IN IStream * stream,
-                          OUT Metafile ** metafile
-)
+Metafile * WINAPI
+Metafile_CreateFromStream(IN IStream * stream)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMetafileFromStream(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipCreateMetafileFromStream(
         stream,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecord(IN HDC referenceHdc,
                       IN const RectF * frameRect,
                       IN MetafileFrameUnit frameUnit,
                       IN EmfType type,
-                      IN const WCHAR * description,
-                      OUT Metafile ** metafile
+                      IN const WCHAR * description
 )
 {
-    return (Status)Gdiplus::DllExports::GdipRecordMetafile(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipRecordMetafile(
         referenceHdc,
         (Gdiplus::EmfType)type,
         (GDIPCONST Gdiplus::GpRectF *)frameRect,
         (Gdiplus::MetafileFrameUnit)frameUnit,
         description,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordI(IN HDC referenceHdc,
                        IN const Rect * frameRect,
                        IN MetafileFrameUnit frameUnit,
                        IN EmfType type,
-                       IN const WCHAR * description,
-                       OUT Metafile ** metafile
+                       IN const WCHAR * description
 )
 {
-    return (Status)Gdiplus::DllExports::GdipRecordMetafileI(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipRecordMetafileI(
         referenceHdc,
         (Gdiplus::EmfType)type,
         (GDIPCONST Gdiplus::GpRect *)frameRect,
         (Gdiplus::MetafileFrameUnit)frameUnit,
         description,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordFileName(IN const WCHAR * fileName,
                               IN HDC referenceHdc,
                               IN const RectF * frameRect,
                               IN MetafileFrameUnit frameUnit,
                               IN EmfType type,
-                              IN const WCHAR * description,
-                              OUT Metafile ** metafile
+                              IN const WCHAR * description
 )
 {
-    return (Status)Gdiplus::DllExports::GdipRecordMetafileFileName(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipRecordMetafileFileName(
         fileName,
         referenceHdc,
         (Gdiplus::EmfType)type,
         (GDIPCONST Gdiplus::GpRectF *)frameRect,
         (Gdiplus::MetafileFrameUnit)frameUnit,
         description,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordFileNameI(IN const WCHAR * fileName,
                                IN HDC referenceHdc,
                                IN const Rect * frameRect,
                                IN MetafileFrameUnit frameUnit,
                                IN EmfType type,
-                               IN const WCHAR * description,
-                               OUT Metafile ** metafile
+                               IN const WCHAR * description
 )
 {
-    return (Status)Gdiplus::DllExports::GdipRecordMetafileFileNameI(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipRecordMetafileFileNameI(
         fileName,
         referenceHdc,
         (Gdiplus::EmfType)type,
         (GDIPCONST Gdiplus::GpRect *)frameRect,
         (Gdiplus::MetafileFrameUnit)frameUnit,
         description,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordStream(IN IStream * stream,
                             IN HDC referenceHdc,
                             IN const RectF * frameRect,
                             IN MetafileFrameUnit frameUnit,
                             IN EmfType type,
-                            IN const WCHAR * description,
-                            OUT Metafile ** metafile
+                            IN const WCHAR * description
 )
 {
-    return (Status)Gdiplus::DllExports::GdipRecordMetafileStream(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipRecordMetafileStream(
         stream,
         referenceHdc,
         (Gdiplus::EmfType)type,
         (GDIPCONST Gdiplus::GpRectF *)frameRect,
         (Gdiplus::MetafileFrameUnit)frameUnit,
         description,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordStreamI(IN IStream * stream,
                              IN HDC referenceHdc,
                              IN const Rect * frameRect,
                              IN MetafileFrameUnit frameUnit,
                              IN EmfType type,
-                             IN const WCHAR * description,
-                             OUT Metafile ** metafile
+                             IN const WCHAR * description
 )
 {
-    return (Status)Gdiplus::DllExports::GdipRecordMetafileStreamI(
+    Metafile * metafile;
+
+    if (Gdiplus::DllExports::GdipRecordMetafileStreamI(
         stream,
         referenceHdc,
         (Gdiplus::EmfType)type,
         (GDIPCONST Gdiplus::GpRect *)frameRect,
         (Gdiplus::MetafileFrameUnit)frameUnit,
         description,
-        (Gdiplus::GpMetafile **)metafile
-    );
+        (Gdiplus::GpMetafile **)&metafile) == Gdiplus::Ok)
+    {
+        return metafile;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 

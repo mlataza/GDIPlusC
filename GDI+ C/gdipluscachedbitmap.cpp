@@ -1,16 +1,21 @@
 #include "stdafx.h"
 
-Status WINAPI
-CachedBitmap_Create(IN Bitmap * bitmap,
-                    IN Graphics * graphics,
-                    OUT CachedBitmap ** cachedBitmap
-)
+CachedBitmap * WINAPI
+CachedBitmap_Create(IN Bitmap * bitmap, IN Graphics * graphics)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateCachedBitmap(
+    CachedBitmap * cachedBitmap;
+
+    if (Gdiplus::DllExports::GdipCreateCachedBitmap(
         (Gdiplus::GpBitmap *)bitmap,
         (Gdiplus::GpGraphics *)graphics,
-        (Gdiplus::GpCachedBitmap **)cachedBitmap
-    );
+        (Gdiplus::GpCachedBitmap **)&cachedBitmap) == Gdiplus::Ok)
+    {
+        return cachedBitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

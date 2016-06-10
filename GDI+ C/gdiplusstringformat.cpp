@@ -1,43 +1,70 @@
 #include "stdafx.h"
 
-Status WINAPI
-StringFormat_Create(IN INT formatFlags,
-                    IN LANGID language,
-                    OUT StringFormat ** strFormat
-)
+StringFormat * WINAPI
+StringFormat_Create(IN INT formatFlags, IN LANGID language)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateStringFormat(
+    StringFormat * strFormat;
+
+    if (Gdiplus::DllExports::GdipCreateStringFormat(
         formatFlags,
         language,
-        (Gdiplus::GpStringFormat **)strFormat
-    );
+        (Gdiplus::GpStringFormat **)&strFormat) == Gdiplus::Ok)
+    {
+        return strFormat;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-StringFormat_GenericDefault(OUT StringFormat ** strFormat)
+StringFormat * WINAPI
+StringFormat_GenericDefault()
 {
-    return (Status)Gdiplus::DllExports::GdipStringFormatGetGenericDefault(
-        (Gdiplus::GpStringFormat **)strFormat
-    );
+    StringFormat * strFormat;
+
+    if (Gdiplus::DllExports::GdipStringFormatGetGenericDefault(
+        (Gdiplus::GpStringFormat **)&strFormat) == Gdiplus::Ok)
+    {
+        return strFormat;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-StringFormat_GenericTypographic(OUT StringFormat ** strFormat)
+StringFormat * WINAPI
+StringFormat_GenericTypographic()
 {
-    return (Status)Gdiplus::DllExports::GdipStringFormatGetGenericTypographic(
-        (Gdiplus::GpStringFormat **)strFormat
-    );
+    StringFormat * strFormat;
+
+    if (Gdiplus::DllExports::GdipStringFormatGetGenericTypographic(
+        (Gdiplus::GpStringFormat **)&strFormat) == Gdiplus::Ok)
+    {
+        return strFormat;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-StringFormat_Clone(IN StringFormat * strFormat,
-                   OUT StringFormat ** clonedFormat
-)
+StringFormat * WINAPI
+StringFormat_Clone(IN StringFormat * strFormat)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneStringFormat(
+    StringFormat * clonedFormat;
+
+    if (Gdiplus::DllExports::GdipCloneStringFormat(
         (Gdiplus::GpStringFormat *)strFormat,
-        (Gdiplus::GpStringFormat **)clonedFormat
-    );
+        (Gdiplus::GpStringFormat **)&clonedFormat) == Gdiplus::Ok)
+    {
+        return clonedFormat;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

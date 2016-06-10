@@ -1,3 +1,9 @@
+/**************************************************************************\
+*
+*  GDIPlusC.h
+*
+\**************************************************************************/
+
 #ifndef GDIPLUS_C_H_
 #define GDIPLUS_C_H_
 
@@ -14,20 +20,7 @@ extern "C"
 {
 #endif
 
-#pragma region GdiplusEnums.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusEnums.h
-*
-* Abstract:
-*
-*   GDI+ Enumeration Types
-*
-\**************************************************************************/
+#pragma region GDI+ Enumeration Types
 
 //--------------------------------------------------------------------------
 // Default bezier flattening tolerance in device pixels.
@@ -833,13 +826,6 @@ enum EmfPlusRecordType
     EmfPlusRecordTypeOffsetClip,
 
     EmfPlusRecordTypeDrawDriverString,
-#if (GDIPVER >= 0x0110)
-    EmfPlusRecordTypeStrokeFillPath,
-    EmfPlusRecordTypeSerializableObject,
-
-    EmfPlusRecordTypeSetTSGraphics,
-    EmfPlusRecordTypeSetTSClip,
-#endif
     // NOTE: New records *must* be added immediately before this line.
 
     EmfPlusRecordTotal,
@@ -1033,9 +1019,6 @@ typedef enum EncoderParameterValueType
                                                                                                                                                                                                                           // specifies the lower end and the second
                                                                                                                                                                                                                           // specifies the higher end. All values
                                                                                                                                                                                                                           // are inclusive at both ends
-#if (GDIPVER >= 0x0110)
-                                                                                                                                                                                                                          EncoderParameterValueTypePointer = 9     // a pointer to a parameter defined data.
-#endif //(GDIPVER >= 0x0110)
 } EncoderParameterValueType;
 
 //---------------------------------------------------------------------------
@@ -1068,10 +1051,6 @@ typedef enum EncoderValue
     EncoderValueFrameDimensionTime,
     EncoderValueFrameDimensionResolution,
     EncoderValueFrameDimensionPage,
-#if (GDIPVER >= 0x0110)
-    EncoderValueColorTypeGray,
-    EncoderValueColorTypeRGB,
-#endif
 } EncoderValue;
 
 //---------------------------------------------------------------------------
@@ -1086,19 +1065,6 @@ typedef enum EmfToWmfBitsFlags
     EmfToWmfBitsFlagsNoXORClip = 0x00000004
 } EmfToWmfBitsFlags;
 
-#if (GDIPVER >= 0x0110)
-//---------------------------------------------------------------------------
-// Conversion of Emf To Emf+ Bits flags
-//---------------------------------------------------------------------------
-
-enum ConvertToEmfPlusFlags
-{
-    ConvertToEmfPlusFlagsDefault = 0x00000000,
-    ConvertToEmfPlusFlagsRopUsed = 0x00000001,
-    ConvertToEmfPlusFlagsText = 0x00000002,
-    ConvertToEmfPlusFlagsInvalidRecord = 0x00000004
-};
-#endif
 
 
 //---------------------------------------------------------------------------
@@ -1114,20 +1080,7 @@ typedef enum GpTestControlEnum
 
 #pragma endregion
 
-#pragma region GdiplusTypes.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusTypes.h
-*
-* Abstract:
-*
-*   GDI+ Types
-*
-\**************************************************************************/
+#pragma region GDI+ Types
 
 //--------------------------------------------------------------------------
 // Callback functions
@@ -1194,7 +1147,7 @@ typedef struct CharacterRange CharacterRange;
 // Status return values from GDI+ methods
 //--------------------------------------------------------------------------
 
-typedef _Return_type_success_(return == 0) enum Status
+typedef enum Status
 {
     Ok = 0,
     GenericError = 1,
@@ -1217,9 +1170,6 @@ typedef _Return_type_success_(return == 0) enum Status
     GdiplusNotInitialized = 18,
     PropertyNotFound = 19,
     PropertyNotSupported = 20,
-#if (GDIPVER >= 0x0110)
-    ProfileNotFound = 21,
-#endif //(GDIPVER >= 0x0110)
 } Status;
 
 
@@ -1233,9 +1183,11 @@ typedef _Return_type_success_(return == 0) enum Status
         REAL Height;
     };
 
-    BOOL WINAPI SizeF_Equals(IN const SizeF* sz1, IN const SizeF* sz2);
+    VOID WINAPI SizeF_FromSIZE(OUT SizeF * sz, const LPSIZE szSrc);
 
-    BOOL WINAPI SizeF_Empty(IN const SizeF* sz);
+    BOOL WINAPI SizeF_Equals(IN const SizeF * sz1, IN const SizeF * sz2);
+
+    BOOL WINAPI SizeF_Empty(IN const SizeF * sz);
 
     //--------------------------------------------------------------------------
     // Represents a dimension in a 2D coordinate system (integer coordinates)
@@ -1247,9 +1199,11 @@ typedef _Return_type_success_(return == 0) enum Status
         INT Height;
     };
 
-    BOOL WINAPI Size_Equals(IN const Size* sz1, IN const Size* sz2);
+    VOID WINAPI Size_FromSIZE(OUT Size * sz, const LPSIZE szSrc);
 
-    BOOL WINAPI Size_Empty(IN const Size* sz);
+    BOOL WINAPI Size_Equals(IN const Size * sz1, IN const Size * sz2);
+
+    BOOL WINAPI Size_Empty(IN const Size * sz);
 
     //--------------------------------------------------------------------------
     // Represents a location in a 2D coordinate system (floating-point coordinates)
@@ -1261,7 +1215,11 @@ typedef _Return_type_success_(return == 0) enum Status
         REAL Y;
     };
 
-    BOOL WINAPI PointF_Equals(IN const PointF* point1, IN const PointF* point2);
+    VOID WINAPI PointF_FromPOINT(OUT PointF * pt, IN const LPPOINT lpPt);
+
+    VOID WINAPI PointF_FromPOINTL(OUT PointF * pt, IN const POINTL * lpPtl);
+
+    BOOL WINAPI PointF_Equals(IN const PointF * point1, IN const PointF * point2);
 
     //--------------------------------------------------------------------------
     // Represents a location in a 2D coordinate system (integer coordinates)
@@ -1273,7 +1231,11 @@ typedef _Return_type_success_(return == 0) enum Status
         INT Y;
     };
 
-    BOOL WINAPI Point_Equals(IN const Point* point1, IN const Point* point2);
+    VOID WINAPI Point_FromPOINT(OUT Point * pt, IN const LPPOINT lpPt);
+
+    VOID WINAPI Point_FromPOINTL(OUT Point * pt, IN const POINTL * lpPtl);
+
+    BOOL WINAPI Point_Equals(IN const Point * point1, IN const Point * point2);
 
     //--------------------------------------------------------------------------
     // Represents a rectangle in a 2D coordinate system (floating-point coordinates)
@@ -1287,43 +1249,47 @@ typedef _Return_type_success_(return == 0) enum Status
         REAL Height;
     };
 
-    VOID WINAPI RectF_GetLocation(IN const RectF* rect, OUT PointF* point);
+    VOID WINAPI RectF_FromRECT(OUT RectF * rect, IN const LPRECT lpRect);
 
-    VOID WINAPI RectF_GetSize(IN const RectF* rect, OUT SizeF* size);
+    VOID WINAPI RectF_FromRECTL(OUT RectF * rect, IN const RECTL * lpRect);
 
-    VOID WINAPI RectF_GetBounds(IN const RectF* rect, OUT RectF* destRect);
+    VOID WINAPI RectF_GetLocation(IN const RectF * rect, OUT PointF * point);
 
-    REAL WINAPI RectF_GetLeft(IN const RectF* rect);
+    VOID WINAPI RectF_GetSize(IN const RectF * rect, OUT SizeF * size);
 
-    REAL WINAPI RectF_GetTop(IN const RectF* rect);
+    VOID WINAPI RectF_GetBounds(IN const RectF * rect, OUT RectF * destRect);
 
-    REAL WINAPI RectF_GetRight(IN const RectF* rect);
+    REAL WINAPI RectF_GetLeft(IN const RectF * rect);
 
-    REAL WINAPI RectF_GetBottom(IN const RectF* rect);
+    REAL WINAPI RectF_GetTop(IN const RectF * rect);
 
-    BOOL WINAPI RectF_IsEmptyArea(IN const RectF* rect);
+    REAL WINAPI RectF_GetRight(IN const RectF * rect);
 
-    BOOL WINAPI RectF_Equals(IN const RectF* rect1, IN const RectF* rect2);
+    REAL WINAPI RectF_GetBottom(IN const RectF * rect);
 
-    BOOL WINAPI RectF_Contains(IN const RectF* rect,
+    BOOL WINAPI RectF_IsEmptyArea(IN const RectF * rect);
+
+    BOOL WINAPI RectF_Equals(IN const RectF * rect1, IN const RectF * rect2);
+
+    BOOL WINAPI RectF_Contains(IN const RectF * rect,
                                IN REAL x,
                                IN REAL y);
 
-    VOID WINAPI RectF_Inflate(OUT RectF* rect,
+    VOID WINAPI RectF_Inflate(OUT RectF * rect,
                               IN REAL dx,
                               IN REAL dy);
 
-    BOOL WINAPI RectF_Intersect(OUT RectF* c,
-                                IN const RectF* a,
-                                IN const RectF* b);
+    BOOL WINAPI RectF_Intersect(OUT RectF * c,
+                                IN const RectF * a,
+                                IN const RectF * b);
 
-    BOOL WINAPI RectF_IntersectsWith(IN const RectF* rect1, IN const RectF* rect2);
+    BOOL WINAPI RectF_IntersectsWith(IN const RectF * rect1, IN const RectF * rect2);
 
-    BOOL WINAPI RectF_Union(OUT RectF* c,
-                            IN const RectF* a,
-                            IN const RectF* b);
+    BOOL WINAPI RectF_Union(OUT RectF * c,
+                            IN const RectF * a,
+                            IN const RectF * b);
 
-    VOID WINAPI RectF_Offset(OUT RectF* rect,
+    VOID WINAPI RectF_Offset(OUT RectF * rect,
                              IN REAL dx,
                              IN REAL dy);
     //--------------------------------------------------------------------------
@@ -1338,55 +1304,58 @@ typedef _Return_type_success_(return == 0) enum Status
         INT Height;
     };
 
-    VOID WINAPI Rect_GetLocation(IN const Rect* rect, OUT Point* point);
+    VOID WINAPI Rect_FromRECT(OUT Rect * rect, IN const LPRECT lpRect);
 
-    VOID WINAPI Rect_GetSize(IN const Rect* rect, OUT Size* size);
+    VOID WINAPI Rect_FromRECTL(OUT Rect * rect, IN const RECTL * lpRect);
 
-    VOID WINAPI Rect_GetBounds(IN const Rect* rect, OUT Rect* destRect);
+    VOID WINAPI Rect_GetLocation(IN const Rect * rect, OUT Point * point);
 
-    INT WINAPI Rect_GetLeft(IN const Rect* rect);
+    VOID WINAPI Rect_GetSize(IN const Rect * rect, OUT Size * size);
 
-    INT WINAPI Rect_GetTop(IN const Rect* rect);
+    VOID WINAPI Rect_GetBounds(IN const Rect * rect, OUT Rect * destRect);
 
-    INT WINAPI Rect_GetRight(IN const Rect* rect);
+    INT WINAPI Rect_GetLeft(IN const Rect * rect);
 
-    INT WINAPI Rect_GetBottom(IN const Rect* rect);
+    INT WINAPI Rect_GetTop(IN const Rect * rect);
 
-    BOOL WINAPI Rect_IsEmptyArea(IN const Rect* rect);
+    INT WINAPI Rect_GetRight(IN const Rect * rect);
 
-    BOOL WINAPI Rect_Equals(IN const Rect* rect1, IN const Rect* rect2);
+    INT WINAPI Rect_GetBottom(IN const Rect * rect);
 
-    BOOL WINAPI Rect_Contains(IN const Rect* rect,
+    BOOL WINAPI Rect_IsEmptyArea(IN const Rect * rect);
+
+    BOOL WINAPI Rect_Equals(IN const Rect * rect1, IN const Rect * rect2);
+
+    BOOL WINAPI Rect_Contains(IN const Rect * rect,
                               IN INT x,
                               IN INT y);
 
-    VOID WINAPI Rect_Inflate(OUT Rect* rect,
+    VOID WINAPI Rect_Inflate(OUT Rect * rect,
                              IN INT dx,
                              IN INT dy);
 
-    BOOL WINAPI Rect_Intersect(OUT Rect* c,
-                               IN const Rect* a,
-                               IN const Rect* b);
+    BOOL WINAPI Rect_Intersect(OUT Rect * c,
+                               IN const Rect * a,
+                               IN const Rect * b);
 
-    BOOL WINAPI Rect_IntersectsWith(IN const Rect* rect1, IN const Rect* rect2);
+    BOOL WINAPI Rect_IntersectsWith(IN const Rect * rect1, IN const Rect * rect2);
 
-    BOOL WINAPI Rect_Union(OUT Rect* c,
-                           IN const Rect* a,
-                           IN const Rect* b);
+    BOOL WINAPI Rect_Union(OUT Rect * c,
+                           IN const Rect * a,
+                           IN const Rect * b);
 
-    VOID WINAPI Rect_Offset(OUT Rect* rect,
+    VOID WINAPI Rect_Offset(OUT Rect * rect,
                             IN INT dx,
                             IN INT dy);
 
-    typedef
-        struct PathData
+    typedef struct PathData
     {
         INT Count;
-        PointF* Points;
-        _Field_size_opt_(Count) BYTE* Types;
+        PointF * Points;
+        BYTE * Types;
     } PathData;
 
-    VOID WINAPI PathData_Destroy(IN PathData* pathData);
+    VOID WINAPI PathData_Destroy(IN PathData * pathData);
 
     struct CharacterRange
     {
@@ -1396,20 +1365,7 @@ typedef _Return_type_success_(return == 0) enum Status
 
 #pragma endregion 
 
-#pragma region GdiplusInit.h
-/**************************************************************************
-*
-* Copyright (c) 2000-2003 Microsoft Corporation
-*
-* Module Name:
-*
-*   Gdiplus initialization
-*
-* Abstract:
-*
-*   GDI+ Startup and Shutdown APIs
-*
-**************************************************************************/
+#pragma region GDI+ Startup and Shutdown APIs
 
 typedef enum DebugEventLevel
 {
@@ -1420,12 +1376,12 @@ typedef enum DebugEventLevel
 // Callback function that GDI+ can call, on debug builds, for assertions
 // and warnings.
 
-typedef VOID(WINAPI *DebugEventProc)(DebugEventLevel level, CHAR *message);
+typedef VOID(WINAPI *DebugEventProc)(DebugEventLevel level, CHAR * message);
 
 // Notification functions which the user must call appropriately if
 // "SuppressBackgroundThread" (below) is set.
 
-typedef Status(WINAPI *NotificationHookProc)(OUT ULONG_PTR *token);
+typedef Status(WINAPI *NotificationHookProc)(OUT ULONG_PTR * token);
 typedef VOID(WINAPI *NotificationUnhookProc)(ULONG_PTR token);
 
 // Input structure for GdiplusStartup()
@@ -1438,18 +1394,6 @@ typedef struct GdiplusStartupInput
                                        // the hook/unhook functions properly
     BOOL SuppressExternalCodecs;       // FALSE unless you want GDI+ only to use
                                        // its internal image codecs.
-#ifdef __cplusplus
-    GdiplusStartupInput(
-        DebugEventProc debugEventCallback = NULL,
-        BOOL suppressBackgroundThread = FALSE,
-        BOOL suppressExternalCodecs = FALSE)
-    {
-        GdiplusVersion = 1;
-        DebugEventCallback = debugEventCallback;
-        SuppressBackgroundThread = suppressBackgroundThread;
-        SuppressExternalCodecs = suppressExternalCodecs;
-    }
-#endif
 } GdiplusStartupInput;
 
 // Output structure for GdiplusStartup()
@@ -1480,9 +1424,9 @@ typedef struct GdiplusStartupOutput
     // output - may be NULL only if input->SuppressBackgroundThread is FALSE.
 
     Status WINAPI GdipluscStartup(
-        OUT ULONG_PTR *token,
-        const GdiplusStartupInput *input,
-        OUT GdiplusStartupOutput *output);
+        OUT ULONG_PTR * token,
+        const GdiplusStartupInput * input,
+        OUT GdiplusStartupOutput * output);
 
     // GDI+ termination. Must be called before GDI+ is unloaded. 
     // Must not be called from DllMain - can cause deadlock.
@@ -1494,20 +1438,7 @@ typedef struct GdiplusStartupOutput
 
 #pragma endregion
 
-#pragma region GdiplusPixelFormats.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   Gdiplus Pixel Formats
-*
-* Abstract:
-*
-*   GDI+ Pixel Formats
-*
-\**************************************************************************/
+#pragma region GDI+ Pixel Formats
 
 typedef DWORD ARGB;
 typedef DWORDLONG ARGB64;
@@ -1593,20 +1524,7 @@ typedef struct ColorPalette
 
 #pragma endregion
 
-#pragma region GdiplusColor.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusColor.h
-*
-* Abstract:
-*
-*   GDI+ Color Object
-*
-\**************************************************************************/
+#pragma region GDI+ Color Object
 
 //----------------------------------------------------------------------------
 // Color mode
@@ -1636,8 +1554,7 @@ typedef enum ColorChannelFlags
 //----------------------------------------------------------------------------
 
 // Common color constants
-
-enum
+typedef enum CommonColors
 {
     AliceBlue = 0xFFF0F8FF,
     AntiqueWhite = 0xFFFAEBD7,
@@ -1780,41 +1697,29 @@ enum
     WhiteSmoke = 0xFFF5F5F5,
     Yellow = 0xFFFFFF00,
     YellowGreen = 0xFF9ACD32
-};
+} CommonColors;
 
-// Shift count and bit mask for A, R, G, B components
+// Bit mask for A, R, G, B components
 
-enum
-{
-    AlphaShift = 24,
-    RedShift = 16,
-    GreenShift = 8,
-    BlueShift = 0
-};
-
-enum
-{
-    AlphaMask = 0xff000000,
-    RedMask = 0x00ff0000,
-    GreenMask = 0x0000ff00,
-    BlueMask = 0x000000ff
-};
+#define RED_MASK    ((ARGB) 0xff << RED_SHIFT)
+#define GREEN_MASK  ((ARGB) 0xff << GREEN_SHIFT)
+#define BLUE_MASK   ((ARGB) 0xff << BLUE_SHIFT)
 
 typedef ARGB Color;
 
-#define Color_GetAlpha(color) ((BYTE)(color >> AlphaShift))
+#define Color_GetAlpha(color) ((BYTE)(color >> ALPHA_SHIFT))
 
 #define Color_GetA(color) Color_GetAlpha(color)
 
-#define Color_GetRed(color) ((BYTE)(color >> RedShift))
+#define Color_GetRed(color) ((BYTE)(color >> RED_SHIFT))
 
 #define Color_GetR(color) Color_GetRed(color)
 
-#define Color_GetGreen(color) ((BYTE)(color >> GreenShift))
+#define Color_GetGreen(color) ((BYTE)(color >> GREEN_SHIFT))
 
 #define Color_GetG(color) Color_GetGreen(color)
 
-#define Color_GetBlue(color) ((BYTE)(color >> BlueShift))
+#define Color_GetBlue(color) ((BYTE)(color >> BLUE_SHIFT))
 
 #define Color_GetB(color) Color_GetBlue(color)
 
@@ -1837,20 +1742,7 @@ ARGB WINAPI Color_MakeARGB(IN BYTE a,
 
 #pragma endregion
 
-#pragma region GdiplusMetaHeader.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   Metafile headers
-*
-* Abstract:
-*
-*   GDI+ Metafile Related Structures
-*
-\**************************************************************************/
+#pragma region GDI+ Metafile Related Structures
 
 typedef struct
 {
@@ -2026,20 +1918,7 @@ WINAPI MetafileHeader_GetEmfHeader(IN const MetafileHeader * mfh);
 
 #pragma endregion
 
-#pragma region GdiplusImaging.h
-/**************************************************************************\
-*
-* Copyright (c) 1999-2000  Microsoft Corporation
-*
-* Module Name:
-*
-*   GdiplusImaging.h
-*
-* Abstract:
-*
-*   GDI+ Imaging GUIDs
-*
-\**************************************************************************/
+#pragma region GDI+ Imaging GUIDs
 
 //---------------------------------------------------------------------------
 // Image file format identifiers
@@ -2597,20 +2476,7 @@ typedef struct PropertyItem
 
 #pragma endregion
 
-#pragma region GdiplusColorMatrix.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusColorMatrix.h
-*
-* Abstract:
-*
-*  GDI+ Color Matrix object, used with Graphics.DrawImage
-*
-\**************************************************************************/
+#pragma region GDI+ Color Matrix object, used with Graphics_DrawImage
 
 //----------------------------------------------------------------------------
 // Color matrix
@@ -2659,23 +2525,10 @@ typedef struct ColorMap
 
 #pragma endregion
 
-#pragma region GdiplusGpStubs.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusGpStubs.h
-*
-* Abstract:
-*
-*   Private GDI+ header file.
-*
-\**************************************************************************/
+#pragma region GDI+ Forward Declarations
 
 //---------------------------------------------------------------------------
-// Private GDI+ structures for internal type checking
+// GDI+ structures
 //---------------------------------------------------------------------------
 
 typedef struct { int unused; } EmptyClass;
@@ -2715,18 +2568,8 @@ typedef EmptyClass Matrix;
 
 #pragma endregion
 
-#pragma region GdiplusImageAttributes.h
+#pragma region GDI+ Image Attributes used with Graphics_DrawImage
 /**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   Image Attributes
-*
-* Abstract:
-*
-*   GDI+ Image Attributes used with Graphics.DrawImage
 *
 * There are 5 possible sets of color adjustments:
 *          ColorAdjustDefault,
@@ -2748,12 +2591,11 @@ typedef EmptyClass Matrix;
 *
 \***************************************************************************/
 
-Status WINAPI
-ImageAttributes_Create(OUT ImageAttributes ** imageAttr);
+ImageAttributes * WINAPI
+ImageAttributes_Create();
 
-Status WINAPI
-ImageAttributes_Clone(IN const ImageAttributes * imageAttr,
-                      OUT ImageAttributes ** cloneImageAttr);
+ImageAttributes * WINAPI
+ImageAttributes_Clone(IN const ImageAttributes * imageAttr);
 
 Status WINAPI
 ImageAttributes_Dispose(IN ImageAttributes * imageAttr);
@@ -2921,31 +2763,15 @@ ImageAttributes_GetAdjustedPalette(
 
 #pragma endregion
 
-#pragma region GdiplusMatrix.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusMatrix.h
-*
-* Abstract:
-*
-*   GDI+ Matrix class
-*
-\**************************************************************************/
+#pragma region GDI+ Matrix APIs
 
 // Default constructor is set to identity matrix.
 
-Status WINAPI
-Matrix_Create(
-    OUT Matrix ** matrix
-);
+Matrix * WINAPI
+Matrix_Create();
 
-Status WINAPI
+Matrix * WINAPI
 Matrix_Create2(
-    OUT Matrix ** matrix,
     IN REAL m11,
     IN REAL m12,
     IN REAL m21,
@@ -2954,24 +2780,21 @@ Matrix_Create2(
     IN REAL dy
 );
 
-Status WINAPI
+Matrix * WINAPI
 Matrix_Create3(
-    OUT Matrix ** matrix,
     IN const RectF * rect,
     IN const PointF * dstplg
 );
 
-Status WINAPI
+Matrix * WINAPI
 Matrix_Create3I(
-    OUT Matrix ** matrix,
     IN const Rect * rect,
     IN const Point * dstplg
 );
 
-Status WINAPI
+Matrix * WINAPI
 Matrix_Clone(
-    IN Matrix * matrix,
-    OUT Matrix ** clone
+    IN Matrix * matrix
 );
 
 Status WINAPI
@@ -3098,20 +2921,7 @@ Matrix_Equals(
 
 #pragma endregion
 
-#pragma region GdiplusBrush.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusBrush.h
-*
-* Abstract:
-*
-*   GDI+ Brush class
-*
-\**************************************************************************/
+#pragma region GDI+ Brush APIs
 
 //--------------------------------------------------------------------------
 // Abstract base class for various brush types
@@ -3122,10 +2932,9 @@ Brush_Delete(
     IN Brush * brush
 );
 
-Status WINAPI
+Brush * WINAPI
 Brush_Clone(
-    IN Brush * brush,
-    OUT Brush ** clone
+    IN Brush * brush
 );
 
 BrushType WINAPI
@@ -3137,10 +2946,9 @@ Brush_GetType(
 // Solid Fill Brush Object
 //--------------------------------------------------------------------------
 
-Status WINAPI
+SolidBrush * WINAPI
 SolidBrush_Create(
-    IN Color color,
-    OUT SolidBrush ** solidBrush
+    IN Color color
 );
 
 #define SolidBrush_Delete Brush_Delete
@@ -3160,28 +2968,25 @@ SolidBrush_SetColor(
 // Texture Brush Fill Object
 //--------------------------------------------------------------------------
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_Create(
     IN Image * image,
-    IN WrapMode wrapMode, // = WrapModeTile
-    OUT TextureBrush ** textureBrush
+    IN WrapMode wrapMode // = WrapModeTile
 );
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_CreateIA(
     IN Image * image,
     IN const RectF * dstRect,
-    IN const ImageAttributes * imageAttributes, // = NULL
-    OUT TextureBrush ** textureBrush
+    IN const ImageAttributes * imageAttributes // = NULL
 );
 
 // integer version
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_CreateIAI(
     IN Image * image,
     IN const Rect * dstRect,
-    IN const ImageAttributes * imageAttributes, // = NULL
-    OUT TextureBrush ** textureBrush
+    IN const ImageAttributes * imageAttributes // = NULL
 );
 
 // When creating a texture brush from a metafile image, the dstRect
@@ -3190,26 +2995,25 @@ TextureBrush_CreateIAI(
 // It is NOT used to crop the metafile image, so only the width 
 // and height values matter for metafiles.
 
-Status WINAPI
+TextureBrush * WINAPI
 TextureBrush_Create2(
     IN Image * image,
     IN WrapMode wrapMode,
     IN REAL dstX,
     IN REAL dstY,
     IN REAL dstWidth,
-    IN REAL dstHeight,
-    OUT TextureBrush ** textureBrush
+    IN REAL dstHeight
 );
 
-Status WINAPI
+// integer version
+TextureBrush * WINAPI
 TextureBrush_Create2I(
     IN Image * image,
     IN WrapMode wrapMode,
     IN INT dstX,
     IN INT dstY,
     IN INT dstWidth,
-    IN INT dstHeight,
-    OUT TextureBrush ** textureBrush
+    IN INT dstHeight
 );
 
 #define TextureBrush_Delete Brush_Delete
@@ -3277,63 +3081,57 @@ TextureBrush_GetImage(IN TextureBrush * textureBrush);
 // Linear Gradient Brush Object
 //--------------------------------------------------------------------------
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_Create(
     IN const PointF * point1,
     IN const PointF * point2,
     IN Color color1,
-    IN Color color2,
-    OUT LinearGradientBrush ** lgBrush
+    IN Color color2
 );
 
 // integer version
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateI(
     IN const Point * point1,
     IN const Point * point2,
     IN Color color1,
-    IN Color color2,
-    OUT LinearGradientBrush ** lgBrush
+    IN Color color2
 );
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRect(
     IN const RectF * rect,
     IN Color color1,
     IN Color color2,
-    IN LinearGradientMode mode,
-    OUT LinearGradientBrush ** lgBrush
+    IN LinearGradientMode mode
 );
 
 // integer version
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRectI(
     IN const Rect * rect,
     IN Color color1,
     IN Color color2,
-    IN LinearGradientMode mode,
-    OUT LinearGradientBrush ** lgBrush
+    IN LinearGradientMode mode
 );
 
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRectWithAngle(
     IN const RectF * rect,
     IN Color color1,
     IN Color color2,
     IN REAL angle,
-    IN BOOL isAngleScalable, // = FALSE
-    OUT LinearGradientBrush ** lgBrush
+    IN BOOL isAngleScalable // = FALSE
 );
 
 // integer version
-Status WINAPI
+LinearGradientBrush * WINAPI
 LinearGradientBrush_CreateFromRectWithAngleI(
     IN const Rect * rect,
     IN Color color1,
     IN Color color2,
     IN REAL angle,
-    IN BOOL isAngleScalable, // = FALSE
-    OUT LinearGradientBrush ** lgBrush
+    IN BOOL isAngleScalable // = FALSE
 );
 
 #define LinearGradientBrush_Delete Brush_Delete
@@ -3495,12 +3293,11 @@ LinearGradientBrush_GetWrapMode(IN LinearGradientBrush * lgBrush);
 // Hatch Brush Object
 //--------------------------------------------------------------------------
 
-Status WINAPI
+HatchBrush * WINAPI
 HatchBrush_Create(
     IN HatchStyle hatchStyle,
     IN Color foreColor,
-    IN Color backColor, // = 0x00000000
-    OUT HatchBrush ** hatchBrush
+    IN Color backColor // = 0x00000000
 );
 
 // TESTING
@@ -3519,46 +3316,30 @@ HatchBrush_GetBackgroundColor(IN HatchBrush * hatchBrush);
 
 #pragma endregion
 
-#pragma region GdiplusPen.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusPen.h
-*
-* Abstract:
-*
-*   GDI+ Pen class
-*
-\**************************************************************************/
+#pragma region GDI+ Pen APIs
 
 //--------------------------------------------------------------------------
 // Pen class
 //--------------------------------------------------------------------------
 
-Status WINAPI
+Pen * WINAPI
 Pen_Create(
     IN Color color,
-    IN REAL width, // = 1.0f
-    OUT Pen ** pen
+    IN REAL width // = 1.0f
 );
 
-Status WINAPI
+Pen * WINAPI
 Pen_Create2(
     IN Brush * brush,
-    IN REAL width, // = 1.0f
-    OUT Pen ** pen
+    IN REAL width // = 1.0f
 );
 
 Status WINAPI
 Pen_Delete(IN Pen * pen);
 
-Status WINAPI
+Pen * WINAPI
 Pen_Clone(
-    IN Pen * pen,
-    OUT Pen ** clone
+    IN Pen * pen
 );
 
 Status WINAPI
@@ -3786,38 +3567,23 @@ Pen_GetCompoundArray(
 
 #pragma endregion
 
-#pragma region GdiplusStringFormat.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusStringFormat.h
-*
-* Abstract:
-*
-*   GDI+ StringFormat class
-*
-\**************************************************************************/
+#pragma region GDI+ StringFormat APIs
 
-Status WINAPI
+StringFormat * WINAPI
 StringFormat_Create(
     IN INT formatFlags, // = 0
-    IN LANGID language, // = LANG_NEUTRAL
-    OUT StringFormat ** strFormat
+    IN LANGID language // = LANG_NEUTRAL
 );
 
-Status WINAPI
-StringFormat_GenericDefault(OUT StringFormat ** strFormat);
+StringFormat * WINAPI
+StringFormat_GenericDefault();
 
-Status WINAPI
-StringFormat_GenericTypographic(OUT StringFormat ** strFormat);
+StringFormat * WINAPI
+StringFormat_GenericTypographic();
 
-Status WINAPI
+StringFormat * WINAPI
 StringFormat_Clone(
-    IN StringFormat * strFormat,
-    OUT StringFormat ** clonedFormat
+    IN StringFormat * strFormat
 );
 
 Status WINAPI
@@ -3912,53 +3678,36 @@ StringFormat_GetMeasurableCharacterRangeCount(IN StringFormat * strFormat);
 
 #pragma endregion
 
-#pragma region GdiplusPath.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusPath.h
-*
-* Abstract:
-*
-*   GDI+ Graphics Path class
-*
-\**************************************************************************/
+#pragma region GDI+ Graphics Path APIs
 
-Status WINAPI
+GraphicsPath * WINAPI
 GraphicsPath_Create(
-    IN FillMode fillMode, // = FillModeAlternate
-    OUT GraphicsPath ** path
+    IN FillMode fillMode // = FillModeAlternate
 );
 
-Status WINAPI
+GraphicsPath * WINAPI
 GraphicsPath_Create2(
     IN const PointF * points,
     IN const BYTE * types,
     IN INT count,
-    IN FillMode fillMode, // = FillModeAlternate
-    OUT GraphicsPath ** path
+    IN FillMode fillMode // = FillModeAlternate
 );
 
 // integer version
-Status WINAPI
+GraphicsPath * WINAPI
 GraphicsPath_Create2I(
     IN const Point * points,
     IN const BYTE * types,
     IN INT count,
-    IN FillMode fillMode, // = FillModeAlternate
-    OUT GraphicsPath ** path
+    IN FillMode fillMode // = FillModeAlternate
 );
 
 Status WINAPI
 GraphicsPath_Delete(IN GraphicsPath * path);
 
-Status WINAPI
+GraphicsPath * WINAPI
 GraphicsPath_Clone(
-    IN GraphicsPath * path,
-    OUT GraphicsPath ** clonePath
+    IN GraphicsPath * path
 ); 
 
 // Reset the path object to empty (and fill mode to FillModeAlternate)
@@ -4461,10 +4210,9 @@ GraphicsPath_IsOutlineVisibleI(
 // GraphicsPathIterator class
 //--------------------------------------------------------------------------
 
-Status WINAPI
+GraphicsPathIterator * WINAPI
 GraphicsPathIterator_Create(
-    IN GraphicsPath * path,
-    OUT GraphicsPathIterator ** pathIter
+    IN GraphicsPath * path
 );
 
 Status WINAPI
@@ -4541,27 +4289,24 @@ GraphicsPathIterator_CopyData(
 //--------------------------------------------------------------------------
 
 
-Status WINAPI
+PathGradientBrush * WINAPI
 PathGradientBrush_Create(
     IN const PointF * points,
     IN INT count,
-    IN WrapMode wrapMode, // = WrapModeClamp
-    OUT PathGradientBrush ** pgBrush
+    IN WrapMode wrapMode // = WrapModeClamp
 );
 
 // integer version
-Status WINAPI
+PathGradientBrush * WINAPI
 PathGradientBrush_CreateI(
     IN const Point * points,
     IN INT count,
-    IN WrapMode wrapMode, // = WrapModeClamp
-    OUT PathGradientBrush ** pgBrush
+    IN WrapMode wrapMode // = WrapModeClamp
 );
 
-Status WINAPI
+PathGradientBrush * WINAPI
 PathGradientBrush_CreateFromPath(
-    IN const GraphicsPath * path,
-    OUT PathGradientBrush ** pgBrush
+    IN const GraphicsPath * path
 );
 
 #define PathGradientBrush_Delete Brush_Delete
@@ -4777,28 +4522,14 @@ PathGradientBrush_SetWrapMode(
 
 #pragma endregion
 
-#pragma region GdiplusLineCaps.h
-/**************************************************************************\
-*
-* Copyright (c) 2000-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*    GdiplusLineCaps.h
-*
-* Abstract:
-*
-*   GDI+ CustomLineCap APIs
-*
-\**************************************************************************/
+#pragma region GDI+ CustomLineCap APIs
 
-Status WINAPI
+CustomLineCap * WINAPI
 CustomLineCap_Create(
     IN GraphicsPath * fillPath,
     IN GraphicsPath * strokePath,
     IN LineCap baseCap,
-    IN REAL baseInset,
-    OUT CustomLineCap ** customCap
+    IN REAL baseInset
 );
 
 Status WINAPI
@@ -4854,13 +4585,10 @@ CustomLineCap_SetWidthScale(
 REAL WINAPI
 CustomLineCap_GetWidthScale(IN CustomLineCap * customCap);
 
-Status WINAPI
+CustomLineCap * WINAPI
 CustomLineCap_Clone(
-    IN CustomLineCap * customCap,
-    OUT CustomLineCap ** cloneCap
+    IN CustomLineCap * customCap
 );
-
-typedef EmptyClass AdjustableArrowCap;
 
 #define AdjustableArrowCap_Delete CustomLineCap_Delete
 #define AdjustableArrowCap_SetStrokeCaps CustomLineCap_SetStrokeCaps
@@ -4875,12 +4603,11 @@ typedef EmptyClass AdjustableArrowCap;
 #define AdjustableArrowCap_GetWidthScale CustomLineCap_GetWidthScale
 #define AdjustableArrowCap_Clone CustomLineCap_Clone
 
-Status WINAPI
+AdjustableArrowCap * WINAPI
 AdjustableArrowCap_Create(
     IN REAL height,
     IN REAL width,
-    IN BOOL isFilled, // = TRUE
-    OUT AdjustableArrowCap ** arrowCap
+    IN BOOL isFilled // = TRUE
 );
 
 Status WINAPI
@@ -4921,45 +4648,28 @@ AdjustableArrowCap_IsFilled(IN AdjustableArrowCap * arrowCap);
 
 #pragma endregion
 
-#pragma region GdiplusGraphics.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusGraphics.h
-*
-* Abstract:
-*
-*   GDI+ Graphics Object
-*
-\**************************************************************************/
+#pragma region GDI+ Graphics APIs
 
-Status WINAPI
+Graphics * WINAPI
 Graphics_CreateFromHDC(
-    IN HDC hdc,
-    OUT Graphics ** graphics
+    IN HDC hdc
 );
 
-Status WINAPI
+Graphics * WINAPI
 Graphics_CreateFromHDC2(
     IN HDC hdc,
-    IN HANDLE hdevice,
-    OUT Graphics ** graphics
+    IN HANDLE hdevice
 );
 
-Status WINAPI
+Graphics * WINAPI
 Graphics_CreateFromHWND(
     IN HWND hwnd,
-    IN BOOL icm, // = FALSE
-    OUT Graphics ** graphics
+    IN BOOL icm // = FALSE
 );
 
-Status WINAPI
+Graphics * WINAPI
 Graphics_CreateFromImage(
-    IN Image * image,
-    OUT Graphics ** graphics
+    IN Image * image
 );
 
 Status WINAPI
@@ -6253,42 +5963,26 @@ Graphics_GetHalftonePalette();
 
 #pragma endregion
 
-#pragma region GdiplusBitmap.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusBitmap.h
-*
-* Abstract:
-*
-*   GDI+ Bitmap class
-*
-\**************************************************************************/
+#pragma region GDI+ Bitmap APIs
 
-Status WINAPI
+Image * WINAPI
 Image_LoadFromFile(
     IN const WCHAR * filename,
-    IN BOOL useEmbeddedColorManagement,
-    OUT Image ** image
+    IN BOOL useEmbeddedColorManagement
 );
 
-Status WINAPI
+Image * WINAPI
 Image_LoadFromStream(
     IN IStream * stream,
-    IN BOOL useEmbeddedColorManagement,
-    OUT Image ** image
+    IN BOOL useEmbeddedColorManagement
 );
 
 Status WINAPI
 Image_Dispose(IN Image * image);
 
-Status WINAPI
+Image * WINAPI
 Image_Clone(
-    IN Image * image,
-    OUT Image ** clone
+    IN Image * image
 );
 
 UINT WINAPI
@@ -6390,14 +6084,13 @@ Image_SetPalette(
     IN const ColorPalette * palette
 );
 
-Status WINAPI
+Image * WINAPI
 Image_GetThumbnailImage(
     IN Image * image,
     IN UINT thumbWidth,
     IN UINT thumbHeight,
-    IN GetThumbnailImageAbort callback,
-    IN VOID * callbackData,
-    OUT Image ** thumbnailImage
+    IN GetThumbnailImageAbort callback, // = NULL
+    IN VOID * callbackData // = NULL
 );
 
 UINT WINAPI
@@ -6516,63 +6209,55 @@ Image_SetPropertyItem(
 #define Bitmap_RemovePropertyItem Image_RemovePropertyItem 
 #define Bitmap_SetPropertyItem Image_SetPropertyItem 
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromFile(
     IN const WCHAR * filename,
-    IN BOOL useEmbeddedColorManagement,
-    OUT Bitmap ** bitmap
+    IN BOOL useEmbeddedColorManagement
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromStream(
     IN IStream * stream,
-    IN BOOL useEmbeddedColorManagement,
-    OUT Bitmap ** bitmap
+    IN BOOL useEmbeddedColorManagement
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromScan0(
     IN INT width,
     IN INT height,
     IN INT stride, // = 0
     IN PixelFormat format,
-    IN BYTE * scan0, // = NULL
-    OUT Bitmap ** bitmap
+    IN BYTE * scan0 // = NULL
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromGraphics(
     IN INT width,
     IN INT height,
-    IN Graphics * target,
-    OUT Bitmap ** bitmap
+    IN Graphics * target
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromGdiDib(
     IN const BITMAPINFO * gdiBitmapInfo,
-    IN VOID * gdiBitmapData,
-    OUT Bitmap ** bitmap
+    IN VOID * gdiBitmapData
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromHBITMAP(
     IN HBITMAP hbm,
-    IN HPALETTE hpal,
-    OUT Bitmap ** bitmap
+    IN HPALETTE hpal
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromHICON(
-    IN HICON hicon,
-    OUT Bitmap ** bitmap
+    IN HICON hicon
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromResource(
     IN HINSTANCE hInstance,
-    IN const WCHAR * bitmapName,
-    OUT Bitmap ** bitmap
+    IN const WCHAR * bitmapName
 );
 
 Status WINAPI
@@ -6588,27 +6273,25 @@ Bitmap_GetHICON(
     OUT HICON * hiconReturn
 );
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CloneArea(
     IN Bitmap * bitmap,
     IN REAL x,
     IN REAL y,
     IN REAL width,
     IN REAL height,
-    IN PixelFormat format,
-    OUT Bitmap ** clone
+    IN PixelFormat format
 );
 
 // integer version
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CloneAreaI(
     IN Bitmap * bitmap,
     IN INT x,
     IN INT y,
     IN INT width,
     IN INT height,
-    IN PixelFormat format,
-    OUT Bitmap ** clone
+    IN PixelFormat format
 );
 
 Status WINAPI
@@ -6650,20 +6333,7 @@ Bitmap_SetResolution(
 
 #pragma endregion
 
-#pragma region GdiplusMetafile.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusMetafile.h
-*
-* Abstract:
-*
-*   GDI+ Metafile class
-*
-\**************************************************************************/
+#pragma region GDI+ Metafile APIs
 
 #define Metafile_Dispose Image_Dispose 
 #define Metafile_Clone Image_Clone 
@@ -6701,105 +6371,94 @@ Bitmap_SetResolution(
 #define Metafile_RemovePropertyItem Image_RemovePropertyItem 
 #define Metafile_SetPropertyItem Image_SetPropertyItem 
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromWmf(
     IN HMETAFILE hWmf,
     IN const WmfPlaceableFileHeader * wmfPlaceableFileHeader,
-    IN BOOL deleteWmf,
-    OUT Metafile ** metafile
+    IN BOOL deleteWmf
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromEmf(
     IN HENHMETAFILE hEmf,
-    IN BOOL deleteEmf,
-    OUT Metafile ** metafile
+    IN BOOL deleteEmf
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromFile(
-    IN const WCHAR * filename,
-    OUT Metafile ** metafile
+    IN const WCHAR * filename
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromWmfFile(
     IN const WCHAR * filename,
-    IN const WmfPlaceableFileHeader * wmfPlaceableFileHeader,
-    OUT Metafile ** metafile
+    IN const WmfPlaceableFileHeader * wmfPlaceableFileHeader
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateFromStream(
-    IN IStream * stream,
-    OUT Metafile ** metafile
+    IN IStream * stream
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecord(
     IN HDC referenceHdc,
     IN const RectF * frameRect,
     IN MetafileFrameUnit frameUnit,
     IN EmfType type,
-    IN const WCHAR * description,
-    OUT Metafile ** metafile
+    IN const WCHAR * description
 );
 
 // integer version
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordI(
     IN HDC referenceHdc,
     IN const Rect * frameRect,
     IN MetafileFrameUnit frameUnit,
     IN EmfType type,
-    IN const WCHAR * description,
-    OUT Metafile ** metafile
+    IN const WCHAR * description
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordFileName(
     IN const WCHAR * fileName,
     IN HDC referenceHdc,
     IN const RectF * frameRect,
     IN MetafileFrameUnit frameUnit,
     IN EmfType type,
-    IN const WCHAR * description,
-    OUT Metafile ** metafile
+    IN const WCHAR * description
 );
 
 // integer version
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordFileNameI(
     IN const WCHAR * fileName,
     IN HDC referenceHdc,
     IN const Rect * frameRect,
     IN MetafileFrameUnit frameUnit,
     IN EmfType type,
-    IN const WCHAR * description,
-    OUT Metafile ** metafile
+    IN const WCHAR * description
 );
 
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordStream(
     IN IStream * stream,
     IN HDC referenceHdc,
     IN const RectF * frameRect,
     IN MetafileFrameUnit frameUnit,
     IN EmfType type,
-    IN const WCHAR * description,
-    OUT Metafile ** metafile
+    IN const WCHAR * description
 );
 
 // integer version
-Status WINAPI
+Metafile * WINAPI
 Metafile_CreateRecordStreamI(
     IN IStream * stream,
     IN HDC referenceHdc,
     IN const Rect * frameRect,
     IN MetafileFrameUnit frameUnit,
     IN EmfType type,
-    IN const WCHAR * description,
-    OUT Metafile ** metafile
+    IN const WCHAR * description
 );
  
 Status WINAPI
@@ -6871,30 +6530,19 @@ Metafile_EmfToWmfBits(
 
 #pragma endregion
 
-#pragma region GdiplusCachedBitmap.h
+#pragma region GDI+ CachedBitmap APIs
 /**************************************************************************
-*
-* Copyright (c) 2000 Microsoft Corporation
-*
-* Module Name:
-*
-*   CachedBitmap class definition
-*
-* Abstract:
 *
 *   GDI+ CachedBitmap is a representation of an accelerated drawing
 *   that has restrictions on what operations are allowed in order
 *   to accelerate the drawing to the destination.
 *
-*   Look for class definition in GdiplusHeaders.h
-*
 **************************************************************************/
 
-Status WINAPI
+CachedBitmap * WINAPI
 CachedBitmap_Create(
     IN Bitmap * bitmap,
-    IN Graphics * graphics,
-    OUT CachedBitmap ** cachedBitmap
+    IN Graphics * graphics
 );
 
 Status WINAPI
@@ -6902,63 +6550,44 @@ CachedBitmap_Delete(IN CachedBitmap * cachedBitmap);
 
 #pragma endregion
 
-#pragma region GdiplusRegion.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusRegion.h
-*
-* Abstract:
-*
-*   GDI+ Region class implementation
-*
-\**************************************************************************/
+#pragma region GDI+ Region APIs
 
-Status WINAPI
-Region_Create(OUT Region ** region);
+Region * WINAPI
+Region_Create();
 
-Status WINAPI
+Region * WINAPI
 Region_CreateFromRect(
-    IN const RectF * rect,
-    OUT Region ** region
+    IN const RectF * rect
 );
 
 // integer version
-Status WINAPI
+Region * WINAPI
 Region_CreateFromRectI(
-    IN const Rect * rect,
-    OUT Region ** region
+    IN const Rect * rect
 );
 
-Status WINAPI
+Region * WINAPI
 Region_CreateFromPath(
-    IN GraphicsPath * path,
-    OUT Region ** region
+    IN GraphicsPath * path
 );
 
-Status WINAPI
+Region * WINAPI
 Region_CreateFromRgnData(
     IN const BYTE * regionData,
-    IN INT size,
-    OUT Region ** region
+    IN INT size
 );
 
-Status WINAPI
-Region_CreateFromHrgn(
-    IN HRGN hRgn,
-    OUT Region ** region
+Region * WINAPI
+Region_CreateFromHRGN(
+    IN HRGN hRgn
 );
 
 Status WINAPI
 Region_Delete(IN Region * region);
 
-Status WINAPI
+Region * WINAPI
 Region_Clone(
-    IN Region * region,
-    OUT Region ** clone
+    IN Region * region
 );
 
 Status WINAPI
@@ -7235,20 +6864,7 @@ Region_GetRegionScansI(
 
 #pragma endregion
 
-#pragma region GdiplusFontCollection.h
-/**************************************************************************\
-*
-* Copyright (c) 2000, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusFontCollection.h
-*
-* Abstract:
-*
-*   Font collections (Installed and Private)
-*
-\**************************************************************************/
+#pragma region Font collections (Installed and Private)
 
 INT WINAPI
 FontCollection_GetFamilyCount(IN FontCollection * fontCollection);
@@ -7261,11 +6877,11 @@ FontCollection_GetFamilies(
     OUT INT * numFound
 );
 
-Status WINAPI
-InstalledFontCollection_Create(OUT InstalledFontCollection ** iFontCollection);
+InstalledFontCollection * WINAPI
+InstalledFontCollection_Create();
 
-Status WINAPI
-PrivateFontCollection_Create(OUT PrivateFontCollection ** pvFontCollection);
+PrivateFontCollection * WINAPI
+PrivateFontCollection_Create();
 
 Status WINAPI
 PrivateFontCollection_Delete(IN PrivateFontCollection * pvFontCollection);
@@ -7285,44 +6901,29 @@ PrivateFontCollection_AddMemoryFont(
 
 #pragma endregion
 
-#pragma region GdiplusFontFamily.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusFontFamily.h
-*
-* Abstract:
-*
-*   GDI+ Font Family class
-*
-\**************************************************************************/
+#pragma region GDI+ Font Family class APIs
 
-Status WINAPI
+FontFamily * WINAPI
 FontFamily_CreateFromName(
     IN const WCHAR * name,
-    IN FontCollection * fontCollection, // = NULL
-    OUT FontFamily ** fontFamily
+    IN FontCollection * fontCollection // = NULL
 );
 
-Status WINAPI
-FontFamily_GenericSansSerif(OUT FontFamily ** fontFamily);
+FontFamily * WINAPI
+FontFamily_GenericSansSerif();
 
-Status WINAPI
-FontFamily_GenericSerif(OUT FontFamily ** fontFamily);
+FontFamily * WINAPI
+FontFamily_GenericSerif();
 
-Status WINAPI
-FontFamily_GenericMonospace(OUT FontFamily ** fontFamily);
+FontFamily * WINAPI
+FontFamily_GenericMonospace();
 
 Status WINAPI
 FontFamily_Delete(IN FontFamily * fontFamily);
 
-Status WINAPI
+FontFamily * WINAPI
 FontFamily_Clone(
-    IN FontFamily * fontFamily,
-    OUT FontFamily ** clonedFamily
+    IN FontFamily * fontFamily
 );
  
 Status WINAPI
@@ -7364,85 +6965,65 @@ FontFamily_GetLineSpacing(
 
 #pragma endregion
 
-#pragma region GdiplusFont.h
-/**************************************************************************\
-*
-* Copyright (c) 1998-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusFont.h
-*
-* Abstract:
-*
-*   GDI+ Font class
-*
-\**************************************************************************/
+#pragma region GDI+ Font APIs
 
-Status WINAPI
+Font * WINAPI
 Font_CreateFromHDC(
-    IN HDC hdc,
-    OUT Font ** font
+    IN HDC hdc
 );
 
-Status WINAPI
+Font * WINAPI
 Font_CreateFromHFONT(
     IN HDC hdc,
-    IN const HFONT hfont,
-    OUT Font ** font
+    IN const HFONT hfont
 );
 
-Status WINAPI
-Font_CreateFromLogfontW(
+Font * WINAPI
+Font_CreateFromLOGFONTW(
     IN HDC hdc,
-    IN const LOGFONTW * logfont,
-    OUT Font ** font
+    IN const LOGFONTW * logfont
 );
 
-Status WINAPI
-Font_CreateFromLogfontA(
+Font * WINAPI
+Font_CreateFromLOGFONTA(
     IN HDC hdc,
-    IN const LOGFONTA * logfont,
-    OUT Font ** font
+    IN const LOGFONTA * logfont
 );
 
-Status WINAPI
+Font * WINAPI
 Font_Create(
     IN FontFamily * family,
     IN REAL emSize,
     IN INT style,
-    IN Unit unit,
-    OUT Font ** font
+    IN Unit unit
 );
 
-Status WINAPI
+Font * WINAPI
 Font_Create2(
     IN const WCHAR * familyName,
     IN REAL emSize,
     IN INT style,
     IN Unit unit,
-    IN FontCollection * fontCollection,
-    OUT Font ** font
+    IN FontCollection * fontCollection
 );
 
 Status WINAPI
-Font_GetLogFontA(
+Font_GetLOGFONTA(
     IN Font * font,
     IN Graphics * g,
     OUT LOGFONTA * logfontA
 );
 
 Status WINAPI
-Font_GetLogFontW(
+Font_GetLOGFONTW(
     IN Font * font,
     IN Graphics * g,
     OUT LOGFONTW * logfontW
 );
 
-Status WINAPI
+Font * WINAPI
 Font_Clone(
-    IN Font * font,
-    OUT Font ** clonedFont
+    IN Font * font
 );
 
 Status WINAPI
@@ -7479,20 +7060,7 @@ Font_GetHeightGivenDPI(
 
 #pragma endregion
 
-#pragma region GdiplusImageCodec.h
-/**************************************************************************\
-*
-* Copyright (c) 2000-2001, Microsoft Corp.  All Rights Reserved.
-*
-* Module Name:
-*
-*   GdiplusImageCodec.h
-*
-* Abstract:
-*
-*   GDI+ Codec Image APIs
-*
-\**************************************************************************/
+#pragma region GDI+ Codec Image APIs
 
 Status WINAPI
 GetImageDecodersSize(

@@ -1,46 +1,68 @@
 #include "stdafx.h"
 
-Status WINAPI
-GraphicsPath_Create(IN FillMode fillMode, OUT GraphicsPath ** path)
+GraphicsPath * WINAPI
+GraphicsPath_Create(IN FillMode fillMode)
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePath(
-        (Gdiplus::GpFillMode)fillMode, 
-        (Gdiplus::GpPath **)path
-    );
+    GraphicsPath * path;
+
+    if (Gdiplus::DllExports::GdipCreatePath(
+        (Gdiplus::GpFillMode)fillMode,
+        (Gdiplus::GpPath **)&path) == Gdiplus::Ok)
+    {
+        return path;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+GraphicsPath * WINAPI
 GraphicsPath_Create2(IN const PointF * points,
                      IN const BYTE * types,
                      IN INT count,
-                     IN FillMode fillMode,
-                     OUT GraphicsPath ** path
+                     IN FillMode fillMode
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePath2(
+    GraphicsPath * path;
+
+    if (Gdiplus::DllExports::GdipCreatePath2(
         (GDIPCONST Gdiplus::PointF *)points,
         types,
         count,
         (Gdiplus::GpFillMode)fillMode,
-        (Gdiplus::GpPath **)path
-    );
+        (Gdiplus::GpPath **)&path) == Gdiplus::Ok)
+    {
+        return path;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+GraphicsPath * WINAPI
 GraphicsPath_Create2I(IN const Point * points,
                       IN const BYTE * types,
                       IN INT count,
-                      IN FillMode fillMode,
-                      OUT GraphicsPath ** path
+                      IN FillMode fillMode
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePath2I(
+    GraphicsPath * path;
+
+    if (Gdiplus::DllExports::GdipCreatePath2I(
         (GDIPCONST Gdiplus::Point *)points,
         types,
         count,
         (Gdiplus::GpFillMode)fillMode,
-        (Gdiplus::GpPath **)path
-    );
+        (Gdiplus::GpPath **)&path) == Gdiplus::Ok)
+    {
+        return path;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -51,13 +73,21 @@ GraphicsPath_Delete(IN GraphicsPath * path)
     );
 }
 
-Status WINAPI
-GraphicsPath_Clone(IN GraphicsPath * path, OUT GraphicsPath ** clonePath)
+GraphicsPath * WINAPI
+GraphicsPath_Clone(IN GraphicsPath * path)
 {
-    return (Status)Gdiplus::DllExports::GdipClonePath(
+    GraphicsPath * clonePath;
+
+    if (Gdiplus::DllExports::GdipClonePath(
         (Gdiplus::GpPath *)path,
-        (Gdiplus::GpPath **)clonePath
-    );
+        (Gdiplus::GpPath **)&clonePath) == Gdiplus::Ok)
+    {
+        return clonePath;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -993,15 +1023,21 @@ GraphicsPath_IsOutlineVisibleI(IN GraphicsPath * path,
     return bResult;
 }
 
-Status WINAPI
-GraphicsPathIterator_Create(IN GraphicsPath * path,
-                            OUT GraphicsPathIterator ** pathIter
-)
+GraphicsPathIterator * WINAPI
+GraphicsPathIterator_Create(IN GraphicsPath * path)
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePathIter(
-        (Gdiplus::GpPathIterator **)pathIter,
-        (Gdiplus::GpPath *)path
-    );
+    GraphicsPathIterator * pathIter;
+
+    if (Gdiplus::DllExports::GdipCreatePathIter(
+        (Gdiplus::GpPathIterator **)&pathIter,
+        (Gdiplus::GpPath *)path) == Gdiplus::Ok)
+    {
+        return pathIter;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -1180,45 +1216,65 @@ GraphicsPathIterator_CopyData(IN GraphicsPathIterator * pathIter,
     return resultCount;
 }
 
-Status WINAPI
+PathGradientBrush * WINAPI
 PathGradientBrush_Create(IN const PointF * points,
                          IN INT count,
-                         IN WrapMode wrapMode,
-                         OUT PathGradientBrush ** pgBrush
+                         IN WrapMode wrapMode
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePathGradient(
+    PathGradientBrush * pgBrush;
+
+    if (Gdiplus::DllExports::GdipCreatePathGradient(
         (GDIPCONST Gdiplus::GpPointF *)points,
         count,
         (Gdiplus::GpWrapMode)wrapMode,
-        (Gdiplus::GpPathGradient **)pgBrush
-    );
+        (Gdiplus::GpPathGradient **)&pgBrush) == Gdiplus::Ok)
+    {
+        return pgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+PathGradientBrush * WINAPI
 PathGradientBrush_CreateI(IN const Point * points,
                           IN INT count,
-                          IN WrapMode wrapMode,
-                          OUT PathGradientBrush ** pgBrush
+                          IN WrapMode wrapMode
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePathGradientI(
+    PathGradientBrush * pgBrush;
+
+    if (Gdiplus::DllExports::GdipCreatePathGradientI(
         (GDIPCONST Gdiplus::GpPoint *)points,
         count,
         (Gdiplus::GpWrapMode)wrapMode,
-        (Gdiplus::GpPathGradient **)pgBrush
-    );
+        (Gdiplus::GpPathGradient **)&pgBrush) == Gdiplus::Ok)
+    {
+        return pgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-PathGradientBrush_CreateFromPath(IN const GraphicsPath * path,
-                                 OUT PathGradientBrush ** pgBrush
-)
+PathGradientBrush * WINAPI
+PathGradientBrush_CreateFromPath(IN const GraphicsPath * path)
 {
-    return (Status)Gdiplus::DllExports::GdipCreatePathGradientFromPath(
+    PathGradientBrush * pgBrush;
+
+    if (Gdiplus::DllExports::GdipCreatePathGradientFromPath(
         (GDIPCONST Gdiplus::GpPath *)path,
-        (Gdiplus::GpPathGradient **)pgBrush
-    );
+        (Gdiplus::GpPathGradient **)&pgBrush) == Gdiplus::Ok)
+    {
+        return pgBrush;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Color WINAPI

@@ -1,55 +1,85 @@
 #include "stdafx.h"
 
-Status WINAPI
-Graphics_CreateFromHDC(IN HDC hdc,
-                       OUT Graphics ** graphics
-)
+Graphics * WINAPI
+Graphics_CreateFromHDC(IN HDC hdc)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateFromHDC(
-        hdc, (Gdiplus::GpGraphics **)graphics
-    );
-}
+    Graphics * graphics;
 
-Status WINAPI
-Graphics_CreateFromHDC2(IN HDC hdc,
-                        IN HANDLE hdevice,
-                        OUT Graphics ** graphics
-)
-{
-    return (Status)Gdiplus::DllExports::GdipCreateFromHDC2(
-        hdc, hdevice, (Gdiplus::GpGraphics **)graphics
-    );
-}
-
-Status WINAPI
-Graphics_CreateFromHWND(IN HWND hwnd,
-                        IN BOOL icm,
-                        OUT Graphics ** graphics
-)
-{
-    if (icm)
+    if (Gdiplus::DllExports::GdipCreateFromHDC(
+        hdc, (Gdiplus::GpGraphics **)&graphics) == Gdiplus::Ok)
     {
-        return (Status)Gdiplus::DllExports::GdipCreateFromHWNDICM(
-            hwnd, (Gdiplus::GpGraphics **)graphics
-        );
+        return graphics;
     }
     else
     {
-        return (Status)Gdiplus::DllExports::GdipCreateFromHWND(
-            hwnd, (Gdiplus::GpGraphics **)graphics
-        );
+        return NULL;
     }
 }
 
-Status WINAPI
-Graphics_CreateFromImage(IN Image * image,
-                         OUT Graphics ** graphics
+Graphics * WINAPI
+Graphics_CreateFromHDC2(IN HDC hdc,
+                        IN HANDLE hdevice
 )
 {
-    return (Status)Gdiplus::DllExports::GdipGetImageGraphicsContext(
+    Graphics * graphics;
+
+    if (Gdiplus::DllExports::GdipCreateFromHDC2(
+        hdc, hdevice, (Gdiplus::GpGraphics **)&graphics) == Gdiplus::Ok)
+    {
+        return graphics;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+Graphics * WINAPI
+Graphics_CreateFromHWND(IN HWND hwnd, IN BOOL icm)
+{
+    Graphics * graphics;
+
+    if (icm)
+    {
+        if (Gdiplus::DllExports::GdipCreateFromHWNDICM(
+            hwnd, (Gdiplus::GpGraphics **)&graphics) == Gdiplus::Ok)
+        {
+            return graphics;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        if (Gdiplus::DllExports::GdipCreateFromHWND(
+            hwnd, (Gdiplus::GpGraphics **)&graphics) == Gdiplus::Ok)
+        {
+            return graphics;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+}
+
+Graphics * WINAPI
+Graphics_CreateFromImage(IN Image * image)
+{
+    Graphics * graphics;
+
+    if (Gdiplus::DllExports::GdipGetImageGraphicsContext(
         (Gdiplus::GpImage *)image,
-        (Gdiplus::GpGraphics **)graphics
-    );
+        (Gdiplus::GpGraphics **)&graphics) == Gdiplus::Ok)
+    {
+        return graphics;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

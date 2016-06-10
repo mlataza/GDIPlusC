@@ -1,67 +1,106 @@
 #include "stdafx.h"
 
-Status WINAPI
-Region_Create(OUT Region ** region)
+Region * WINAPI
+Region_Create()
 {
-    return (Status)Gdiplus::DllExports::GdipCreateRegion(
-        (Gdiplus::GpRegion **)region
-    );
+    Region * region;
+
+    if (Gdiplus::DllExports::GdipCreateRegion(
+        (Gdiplus::GpRegion **)&region) == Gdiplus::Ok)
+    {
+        return region;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Region_CreateFromRect(IN const RectF * rect,
-                  OUT Region ** region
-)
+Region * WINAPI
+Region_CreateFromRect(IN const RectF * rect)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateRegionRect(
+    Region * region;
+
+    if (Gdiplus::DllExports::GdipCreateRegionRect(
         (GDIPCONST Gdiplus::GpRectF *)rect,
-        (Gdiplus::GpRegion **)region
-    );
+        (Gdiplus::GpRegion **)&region) == Gdiplus::Ok)
+    {
+        return region;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Region_CreateFromRectI(IN const Rect * rect,
-                   OUT Region ** region
-)
+Region * WINAPI
+Region_CreateFromRectI(IN const Rect * rect)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateRegionRectI(
+    Region * region;
+
+    if (Gdiplus::DllExports::GdipCreateRegionRectI(
         (GDIPCONST Gdiplus::GpRect *)rect,
-        (Gdiplus::GpRegion **)region
-    );
+        (Gdiplus::GpRegion **)&region) == Gdiplus::Ok)
+    {
+        return region;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Region_CreateFromPath(IN GraphicsPath * path,
-                  OUT Region ** region
-)
+Region * WINAPI
+Region_CreateFromPath(IN GraphicsPath * path)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateRegionPath(
+    Region * region;
+
+    if (Gdiplus::DllExports::GdipCreateRegionPath(
         (Gdiplus::GpPath *)path,
-        (Gdiplus::GpRegion **)region
-    );
+        (Gdiplus::GpRegion **)&region) == Gdiplus::Ok)
+    {
+        return region;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Region * WINAPI
 Region_CreateFromRgnData(IN const BYTE * regionData,
-                         IN INT size,
-                         OUT Region ** region
+                         IN INT size
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateRegionRgnData(
+    Region * region;
+
+    if (Gdiplus::DllExports::GdipCreateRegionRgnData(
         regionData, size,
-        (Gdiplus::GpRegion **)region
-    );
+        (Gdiplus::GpRegion **)&region) == Gdiplus::Ok)
+    {
+        return region;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Region_CreateFromHrgn(IN HRGN hRgn,
-                      OUT Region ** region
-)
+Region * WINAPI
+Region_CreateFromHRGN(IN HRGN hRgn)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateRegionHrgn(
+    Region * region;
+
+    if (Gdiplus::DllExports::GdipCreateRegionHrgn(
         hRgn,
-        (Gdiplus::GpRegion **)region
-    );
+        (Gdiplus::GpRegion **)&region) == Gdiplus::Ok)
+    {
+        return region;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -72,15 +111,21 @@ Region_Delete(IN Region * region)
     );
 }
 
-Status WINAPI
-Region_Clone(IN Region * region,
-             OUT Region ** clone
-)
+Region * WINAPI
+Region_Clone(IN Region * region)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneRegion(
+    Region * clone;
+
+    if (Gdiplus::DllExports::GdipCloneRegion(
         (Gdiplus::GpRegion *)region,
-        (Gdiplus::GpRegion **)clone
-    );
+        (Gdiplus::GpRegion **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

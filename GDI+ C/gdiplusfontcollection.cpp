@@ -27,20 +27,36 @@ FontCollection_GetFamilies(IN FontCollection * fontCollection,
     );
 }
 
-Status WINAPI
-InstalledFontCollection_Create(OUT InstalledFontCollection ** iFontCollection)
+InstalledFontCollection * WINAPI
+InstalledFontCollection_Create()
 {
-    return (Status)Gdiplus::DllExports::GdipNewInstalledFontCollection(
-        (Gdiplus::GpFontCollection **)iFontCollection
-    );
+    InstalledFontCollection * iFontCollection;
+
+    if (Gdiplus::DllExports::GdipNewInstalledFontCollection(
+        (Gdiplus::GpFontCollection **)&iFontCollection) == Gdiplus::Ok)
+    {
+        return iFontCollection;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-PrivateFontCollection_Create(OUT PrivateFontCollection ** pvFontCollection)
+PrivateFontCollection * WINAPI
+PrivateFontCollection_Create()
 {
-    return (Status)Gdiplus::DllExports::GdipNewPrivateFontCollection(
-        (Gdiplus::GpFontCollection **)pvFontCollection
-    );
+    PrivateFontCollection * pvFontCollection;
+
+    if (Gdiplus::DllExports::GdipNewPrivateFontCollection(
+        (Gdiplus::GpFontCollection **)&pvFontCollection) == Gdiplus::Ok)
+    {
+        return pvFontCollection;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

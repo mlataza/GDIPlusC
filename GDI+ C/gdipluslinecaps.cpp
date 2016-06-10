@@ -1,20 +1,27 @@
 #include "stdafx.h"
 
-Status WINAPI
+CustomLineCap * WINAPI
 CustomLineCap_Create(IN GraphicsPath * fillPath,
                      IN GraphicsPath * strokePath,
                      IN LineCap baseCap,
-                     IN REAL baseInset,
-                     OUT CustomLineCap ** customCap
+                     IN REAL baseInset
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateCustomLineCap(
+    CustomLineCap * customCap;
+
+    if (Gdiplus::DllExports::GdipCreateCustomLineCap(
         (Gdiplus::GpPath *)fillPath,
         (Gdiplus::GpPath *)strokePath,
         (Gdiplus::GpLineCap)baseCap,
         baseInset,
-        (Gdiplus::GpCustomLineCap **)customCap
-    );
+        (Gdiplus::GpCustomLineCap **)&customCap) == Gdiplus::Ok)
+    {
+        return customCap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -146,29 +153,42 @@ CustomLineCap_GetWidthScale(IN CustomLineCap * customCap)
     return widthScale;
 }
 
-Status WINAPI
-CustomLineCap_Clone(IN CustomLineCap * customCap,
-                    OUT CustomLineCap ** cloneCap
-)
+CustomLineCap * WINAPI
+CustomLineCap_Clone(IN CustomLineCap * customCap)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneCustomLineCap(
+    CustomLineCap * cloneCap;
+
+    if (Gdiplus::DllExports::GdipCloneCustomLineCap(
         (Gdiplus::GpCustomLineCap *)customCap,
-        (Gdiplus::GpCustomLineCap **)cloneCap
-    );
+        (Gdiplus::GpCustomLineCap **)&cloneCap) == Gdiplus::Ok)
+    {
+        return cloneCap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+AdjustableArrowCap * WINAPI
 AdjustableArrowCap_Create(IN REAL height,
                           IN REAL width,
-                          IN BOOL isFilled,
-                          OUT AdjustableArrowCap ** arrowCap
+                          IN BOOL isFilled
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateAdjustableArrowCap(
+    AdjustableArrowCap * arrowCap;
+
+    if (Gdiplus::DllExports::GdipCreateAdjustableArrowCap(
         height, width,
         isFilled,
-        (Gdiplus::GpAdjustableArrowCap **)arrowCap
-    );
+        (Gdiplus::GpAdjustableArrowCap **)&arrowCap) == Gdiplus::Ok)
+    {
+        return arrowCap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

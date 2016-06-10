@@ -1,21 +1,36 @@
 #include "stdafx.h"
 
-Status WINAPI
-ImageAttributes_Create(OUT ImageAttributes ** imageAttr)
+ImageAttributes * WINAPI
+ImageAttributes_Create()
 {
-    return (Status)Gdiplus::DllExports::GdipCreateImageAttributes(
-        (Gdiplus::GpImageAttributes **)imageAttr
-    );
+    ImageAttributes * imgAttr;
+
+    if (Gdiplus::DllExports::GdipCreateImageAttributes(
+        (Gdiplus::GpImageAttributes **)&imgAttr) == Gdiplus::Ok)
+    {
+        return imgAttr;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-ImageAttributes_Clone(IN const ImageAttributes * imageAttr,
-                      OUT ImageAttributes ** cloneImageAttr)
+ImageAttributes * WINAPI
+ImageAttributes_Clone(IN const ImageAttributes * imageAttr)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneImageAttributes(
+    ImageAttributes * clone;
+
+    if (Gdiplus::DllExports::GdipCloneImageAttributes(
         (GDIPCONST Gdiplus::GpImageAttributes *)imageAttr,
-        (Gdiplus::GpImageAttributes **)cloneImageAttr
-    );
+        (Gdiplus::GpImageAttributes **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

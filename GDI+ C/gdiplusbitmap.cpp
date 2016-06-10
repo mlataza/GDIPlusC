@@ -1,46 +1,70 @@
 #include "stdafx.h"
 
-Status WINAPI
-Image_LoadFromFile(IN const WCHAR * filename,
-                   IN BOOL useEmbeddedColorManagement,
-                   OUT Image ** image
-)
+Image * WINAPI
+Image_LoadFromFile(IN const WCHAR * filename, IN BOOL useEmbeddedColorManagement)
 {
+    Image * image;
+
     if (useEmbeddedColorManagement)
     {
-        return (Status)Gdiplus::DllExports::GdipLoadImageFromFileICM(
+        if (Gdiplus::DllExports::GdipLoadImageFromFileICM(
             filename,
-            (Gdiplus::GpImage **)image
-        );
+            (Gdiplus::GpImage **)&image) == Gdiplus::Ok)
+        {
+            return image;
+        }
+        else
+        {
+            return NULL;
+        }
     }
     else
     {
-        return (Status)Gdiplus::DllExports::GdipLoadImageFromFile(
+        if (Gdiplus::DllExports::GdipLoadImageFromFile(
             filename,
-            (Gdiplus::GpImage **)image
-        );
+            (Gdiplus::GpImage **)&image) == Gdiplus::Ok)
+        {
+            return image;
+        }
+        else
+        {
+            return NULL;
+        }
     }
 }
 
-Status WINAPI
+Image * WINAPI
 Image_LoadFromStream(IN IStream * stream,
-                     IN BOOL useEmbeddedColorManagement,
-                     OUT Image ** image
+                     IN BOOL useEmbeddedColorManagement
 )
 {
+    Image * image;
+
     if (useEmbeddedColorManagement)
     {
-        return (Status)Gdiplus::DllExports::GdipLoadImageFromStreamICM(
+        if (Gdiplus::DllExports::GdipLoadImageFromStreamICM(
             stream,
-            (Gdiplus::GpImage **)image
-        );
+            (Gdiplus::GpImage **)&image) == Gdiplus::Ok)
+        {
+            return image;
+        }
+        else
+        {
+            return NULL;
+        }
     }
     else
     {
-        return (Status)Gdiplus::DllExports::GdipLoadImageFromStream(
+        if (Gdiplus::DllExports::GdipLoadImageFromStream(
             stream,
-            (Gdiplus::GpImage **)image
-        );
+            (Gdiplus::GpImage **)&image) == Gdiplus::Ok)
+        {
+            return image;
+        }
+        else
+        {
+            return NULL;
+        }
     }
 }
 
@@ -52,15 +76,21 @@ Image_Dispose(IN Image * image)
     );
 }
 
-Status WINAPI
-Image_Clone(IN Image * image,
-            OUT Image ** clone
-)
+Image * WINAPI
+Image_Clone(IN Image * image)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneImage(
+    Image * clone;
+
+    if (Gdiplus::DllExports::GdipCloneImage(
         (Gdiplus::GpImage *)image,
-        (Gdiplus::GpImage **)clone
-    );
+        (Gdiplus::GpImage **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 UINT WINAPI
@@ -311,21 +341,28 @@ Image_SetPalette(IN Image * image,
     );
 }
 
-Status WINAPI
+Image * WINAPI
 Image_GetThumbnailImage(IN Image * image,
                         IN UINT thumbWidth,
                         IN UINT thumbHeight,
                         IN GetThumbnailImageAbort callback,
-                        IN VOID * callbackData,
-                        OUT Image ** thumbnailImage
+                        IN VOID * callbackData
 )
 {
-    return (Status)Gdiplus::DllExports::GdipGetImageThumbnail(
+    Image * thumbnailImage;
+
+    if (Gdiplus::DllExports::GdipGetImageThumbnail(
         (Gdiplus::GpImage *)image,
         thumbWidth, thumbHeight,
-        (Gdiplus::GpImage **)thumbnailImage,
-        callback, callbackData
-    );
+        (Gdiplus::GpImage **)&thumbnailImage,
+        callback, callbackData) == Gdiplus::Ok)
+    {
+        return thumbnailImage;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 UINT WINAPI
@@ -502,131 +539,198 @@ Image_SetPropertyItem(IN Image * image,
     );
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromFile(IN const WCHAR * filename,
-                      IN BOOL useEmbeddedColorManagement,
-                      OUT Bitmap ** bitmap
+                      IN BOOL useEmbeddedColorManagement
 )
 {
+    Bitmap * bitmap;
+
     if (useEmbeddedColorManagement)
     {
-        return (Status)Gdiplus::DllExports::GdipCreateBitmapFromFileICM(
+        if (Gdiplus::DllExports::GdipCreateBitmapFromFileICM(
             filename,
-            (Gdiplus::GpBitmap **)bitmap
-        );
+            (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+        {
+            return bitmap;
+        }
+        else
+        {
+            return NULL;
+        }
     }
     else
     {
-        return (Status)Gdiplus::DllExports::GdipCreateBitmapFromFile(
+        if (Gdiplus::DllExports::GdipCreateBitmapFromFile(
             filename,
-            (Gdiplus::GpBitmap **)bitmap
-        );
+            (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+        {
+            return bitmap;
+        }
+        else
+        {
+            return NULL;
+        }
     }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromStream(IN IStream * stream,
-                        IN BOOL useEmbeddedColorManagement,
-                        OUT Bitmap ** bitmap
+                        IN BOOL useEmbeddedColorManagement
 )
 {
+    Bitmap * bitmap;
+
     if (useEmbeddedColorManagement)
     {
-        return (Status)Gdiplus::DllExports::GdipCreateBitmapFromStreamICM(
+        if (Gdiplus::DllExports::GdipCreateBitmapFromStreamICM(
             stream,
-            (Gdiplus::GpBitmap **)bitmap
-        );
+            (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+        {
+            return bitmap;
+        }
+        else
+        {
+            return NULL;
+        }
     }
     else
     {
-        return (Status)Gdiplus::DllExports::GdipCreateBitmapFromStream(
+        if (Gdiplus::DllExports::GdipCreateBitmapFromStream(
             stream,
-            (Gdiplus::GpBitmap **)bitmap
-        );
+            (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+        {
+            return bitmap;
+        }
+        else
+        {
+            return NULL;
+        }
     }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromScan0(IN INT width,
                        IN INT height,
                        IN INT stride,
                        IN PixelFormat format,
-                       IN BYTE * scan0,
-                       OUT Bitmap ** bitmap
+                       IN BYTE * scan0
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateBitmapFromScan0(
+    Bitmap * bitmap;
+
+    if (Gdiplus::DllExports::GdipCreateBitmapFromScan0(
         width,
         height,
         stride,
         format,
         scan0,
-        (Gdiplus::GpBitmap **)bitmap
-    );
+        (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+    {
+        return bitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromGraphics(IN INT width,
                           IN INT height,
-                          IN Graphics * target,
-                          OUT Bitmap ** bitmap
+                          IN Graphics * target
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateBitmapFromGraphics(
+    Bitmap * bitmap;
+
+    if (Gdiplus::DllExports::GdipCreateBitmapFromGraphics(
         width,
         height,
         (Gdiplus::GpGraphics *)target,
-        (Gdiplus::GpBitmap **)bitmap
-    );
+        (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+    {
+        return bitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromGdiDib(IN const BITMAPINFO * gdiBitmapInfo,
-                        IN VOID * gdiBitmapData,
-                        OUT Bitmap ** bitmap
+                        IN VOID * gdiBitmapData
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateBitmapFromGdiDib(
+    Bitmap * bitmap;
+
+    if (Gdiplus::DllExports::GdipCreateBitmapFromGdiDib(
         gdiBitmapInfo,
         gdiBitmapData,
-        (Gdiplus::GpBitmap **)bitmap
-    );
+        (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+    {
+        return bitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromHBITMAP(IN HBITMAP hbm,
-                         IN HPALETTE hpal,
-                         OUT Bitmap ** bitmap
+                         IN HPALETTE hpal
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateBitmapFromHBITMAP(
+    Bitmap * bitmap;
+
+    if (Gdiplus::DllExports::GdipCreateBitmapFromHBITMAP(
         hbm, hpal,
-        (Gdiplus::GpBitmap **)bitmap
-    );
+        (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+    {
+        return bitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Bitmap_CreateFromHICON(IN HICON hicon,
-                       OUT Bitmap ** bitmap
-)
+Bitmap * WINAPI
+Bitmap_CreateFromHICON(IN HICON hicon)
 {
-    return (Status)Gdiplus::DllExports::GdipCreateBitmapFromHICON(
+    Bitmap * bitmap;
+
+    if (Gdiplus::DllExports::GdipCreateBitmapFromHICON(
         hicon,
-        (Gdiplus::GpBitmap **)bitmap
-    );
+        (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+    {
+        return bitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CreateFromResource(IN HINSTANCE hInstance,
-                          IN const WCHAR * bitmapName,
-                          OUT Bitmap ** bitmap
+                          IN const WCHAR * bitmapName
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateBitmapFromResource(
+    Bitmap * bitmap;
+
+    if (Gdiplus::DllExports::GdipCreateBitmapFromResource(
         hInstance,
         bitmapName,
-        (Gdiplus::GpBitmap **)bitmap
-    );
+        (Gdiplus::GpBitmap **)&bitmap) == Gdiplus::Ok)
+    {
+        return bitmap;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -653,46 +757,60 @@ Bitmap_GetHICON(IN Bitmap * bitmap,
     );
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CloneArea(IN Bitmap * bitmap,
                  IN REAL x,
                  IN REAL y,
                  IN REAL width,
                  IN REAL height,
-                 IN PixelFormat format,
-                 OUT Bitmap ** clone
+                 IN PixelFormat format
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCloneBitmapArea(
+    Bitmap * clone;
+
+    if (Gdiplus::DllExports::GdipCloneBitmapArea(
         x,
         y,
         width,
         height,
         format,
         (Gdiplus::GpBitmap *)bitmap,
-        (Gdiplus::GpBitmap **)clone
-    );
+        (Gdiplus::GpBitmap **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
+Bitmap * WINAPI
 Bitmap_CloneAreaI(IN Bitmap * bitmap,
                   IN INT x,
                   IN INT y,
                   IN INT width,
                   IN INT height,
-                  IN PixelFormat format,
-                  OUT Bitmap ** clone
+                  IN PixelFormat format
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCloneBitmapAreaI(
+    Bitmap * clone;
+
+    if (Gdiplus::DllExports::GdipCloneBitmapAreaI(
         x,
         y,
         width,
         height,
         format,
         (Gdiplus::GpBitmap *)bitmap,
-        (Gdiplus::GpBitmap **)clone
-    );
+        (Gdiplus::GpBitmap **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

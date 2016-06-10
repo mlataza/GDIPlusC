@@ -1,61 +1,99 @@
 #include "stdafx.h"
 
-Status WINAPI
-Matrix_Create(OUT Matrix ** matrix)
+Matrix * WINAPI
+Matrix_Create()
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMatrix(
-        (Gdiplus::GpMatrix **)matrix
-    );
+    Matrix * matrix;
+
+    if (Gdiplus::DllExports::GdipCreateMatrix(
+        (Gdiplus::GpMatrix **)&matrix) == Gdiplus::Ok)
+    {
+        return matrix;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Matrix_Create2(OUT Matrix ** matrix,
-               IN REAL m11,
+Matrix * WINAPI
+Matrix_Create2(IN REAL m11,
                IN REAL m12,
                IN REAL m21,
                IN REAL m22,
                IN REAL dx,
-               IN REAL dy)
-{
-    return (Status)Gdiplus::DllExports::GdipCreateMatrix2(
-        m11, m12, m21, m22, dx, dy,
-        (Gdiplus::GpMatrix **)matrix
-    );
-}
-
-Status WINAPI
-Matrix_Create3(OUT Matrix ** matrix,
-    IN const RectF * rect,
-    IN const PointF * dstplg
+               IN REAL dy
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMatrix3(
-        (GDIPCONST Gdiplus::GpRectF *)rect,
-        (GDIPCONST Gdiplus::GpPointF *)dstplg,
-        (Gdiplus::GpMatrix **)matrix
-    );
+    Matrix * matrix;
+
+    if (Gdiplus::DllExports::GdipCreateMatrix2(
+        m11, m12, m21, m22, dx, dy,
+        (Gdiplus::GpMatrix **)&matrix) == Gdiplus::Ok)
+    {
+        return matrix;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Matrix_Create3I(OUT Matrix ** matrix,
-                IN const Rect * rect,
+Matrix * WINAPI
+Matrix_Create3(IN const RectF * rect,
+               IN const PointF * dstplg
+)
+{
+    Matrix * matrix;
+
+    if (Gdiplus::DllExports::GdipCreateMatrix3(
+        (GDIPCONST Gdiplus::GpRectF *)rect,
+        (GDIPCONST Gdiplus::GpPointF *)dstplg,
+        (Gdiplus::GpMatrix **)&matrix) == Gdiplus::Ok)
+    {
+        return matrix;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+Matrix * WINAPI
+Matrix_Create3I(IN const Rect * rect,
                 IN const Point * dstplg
 )
 {
-    return (Status)Gdiplus::DllExports::GdipCreateMatrix3I(
+    Matrix * matrix;
+
+    if (Gdiplus::DllExports::GdipCreateMatrix3I(
         (GDIPCONST Gdiplus::GpRect *)rect,
         (GDIPCONST Gdiplus::GpPoint *)dstplg,
-        (Gdiplus::GpMatrix **)matrix
-    );
+        (Gdiplus::GpMatrix **)&matrix) == Gdiplus::Ok)
+    {
+        return matrix;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Matrix_Clone(IN Matrix * matrix, OUT Matrix ** clone)
+Matrix * WINAPI
+Matrix_Clone(IN Matrix * matrix)
 {
-    return (Status)Gdiplus::DllExports::GdipCloneMatrix(
+    Matrix * clone;
+
+    if (Gdiplus::DllExports::GdipCloneMatrix(
         (Gdiplus::GpMatrix *)matrix,
-        (Gdiplus::GpMatrix **)clone
-    );
+        (Gdiplus::GpMatrix **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI

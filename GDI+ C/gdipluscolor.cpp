@@ -22,8 +22,8 @@ ARGB WINAPI Color_MakeARGB(IN BYTE a,
                            IN BYTE g,
                            IN BYTE b)
 {
-    return (((ARGB)(b) << BlueShift) |
-        ((ARGB)(g) << GreenShift) |
-            ((ARGB)(r) << RedShift) |
-            ((ARGB)(a) << AlphaShift));
+    return (((ARGB)(b) << BLUE_SHIFT) |
+        ((ARGB)(g) << GREEN_SHIFT) |
+            ((ARGB)(r) << RED_SHIFT) |
+            ((ARGB)(a) << ALPHA_SHIFT));
 }

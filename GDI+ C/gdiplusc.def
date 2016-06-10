@@ -6,12 +6,20 @@ EXPORTS
 	GdipluscStartup			
 	GdipluscShutdown		
 ; gdiplustypes.cpp
+	SizeF_FromSIZE
 	SizeF_Equals			
-	SizeF_Empty				
+	SizeF_Empty			
+	Size_FromSIZE	
 	Size_Equals				
 	Size_Empty
+	PointF_FromPOINT
+	PointF_FromPOINTL
 	PointF_Equals
+	Point_FromPOINT
+	Point_FromPOINTL
 	Point_Equals
+	RectF_FromRECT
+	RectF_FromRECTL
 	RectF_GetLocation
 	RectF_GetSize
 	RectF_GetBounds
@@ -27,6 +35,8 @@ EXPORTS
 	RectF_IntersectsWith
 	RectF_Union
 	RectF_Offset
+	Rect_FromRECT
+	Rect_FromRECTL
 	Rect_GetLocation
 	Rect_GetSize
 	Rect_GetBounds
@@ -630,7 +640,7 @@ EXPORTS
 	Region_CreateFromRectI
 	Region_CreateFromPath
 	Region_CreateFromRgnData
-	Region_CreateFromHrgn
+	Region_CreateFromHRGN
 	Region_Delete
 	Region_Clone
 	Region_MakeInfinite
@@ -697,12 +707,12 @@ EXPORTS
 ; gdiplusfont.cpp
 	Font_CreateFromHDC
 	Font_CreateFromHFONT
-	Font_CreateFromLogfontW
-	Font_CreateFromLogfontA
+	Font_CreateFromLOGFONTW
+	Font_CreateFromLOGFONTA
 	Font_Create
 	Font_Create2
-	Font_GetLogFontA
-	Font_GetLogFontW
+	Font_GetLOGFONTA
+	Font_GetLOGFONTW
 	Font_Clone
 	Font_Delete
 	Font_GetFamily

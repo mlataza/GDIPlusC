@@ -1,29 +1,43 @@
 #include "stdafx.h"
 
-Status WINAPI
-Pen_Create(IN Color color, IN REAL width, OUT Pen ** pen)
+Pen * WINAPI
+Pen_Create(IN Color color, IN REAL width)
 {
     Unit unit = UnitWorld;
-    
-    return (Status)Gdiplus::DllExports::GdipCreatePen1(
+    Pen * pen;
+
+    if (Gdiplus::DllExports::GdipCreatePen1(
         Color_GetValue(color),
-        width, 
-        (Gdiplus::GpUnit)unit, 
-        (Gdiplus::GpPen **)pen
-    );
+        width,
+        (Gdiplus::GpUnit)unit,
+        (Gdiplus::GpPen **)&pen) == Gdiplus::Ok)
+    {
+        return pen;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
-Status WINAPI
-Pen_Create2(IN Brush * brush, IN REAL width, OUT Pen ** pen)
+Pen * WINAPI
+Pen_Create2(IN Brush * brush, IN REAL width)
 {
     Unit unit = UnitWorld;
-    
-    return (Status)Gdiplus::DllExports::GdipCreatePen2(
+    Pen * pen;
+
+    if (Gdiplus::DllExports::GdipCreatePen2(
         (Gdiplus::GpBrush *)brush,
         width,
         (Gdiplus::GpUnit)unit,
-        (Gdiplus::GpPen **)pen
-    );
+        (Gdiplus::GpPen **)&pen) == Gdiplus::Ok)
+    {
+        return pen;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
@@ -34,13 +48,21 @@ Pen_Delete(IN Pen * pen)
     );
 }
 
-Status WINAPI
-Pen_Clone(IN Pen * pen, OUT Pen ** clone)
+Pen * WINAPI
+Pen_Clone(IN Pen * pen)
 {
-    return (Status)Gdiplus::DllExports::GdipClonePen(
+    Pen * clone;
+
+    if (Gdiplus::DllExports::GdipClonePen(
         (Gdiplus::GpPen *)pen,
-        (Gdiplus::GpPen **)clone
-    );
+        (Gdiplus::GpPen **)&clone) == Gdiplus::Ok)
+    {
+        return clone;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 Status WINAPI
