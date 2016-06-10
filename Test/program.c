@@ -110,7 +110,8 @@ Sample Samples[] = {
     {L"21. Improving Performance by Avoiding Automatic Scaling", DialogProc21},
     {L"22. Reading and Writing Metadata", DialogProc22},
     {L"23. Listing Installed Encoders", DialogProc23},
-    {L"24. Listing Installed Decoders", DialogProc24}
+    {L"24. Listing Installed Decoders", DialogProc24},
+    {L"25. Retrieving the Class Identifier for an Encoder", DialogProc25}
 };
 
 #define MARGIN      8

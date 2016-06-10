@@ -164,6 +164,7 @@
     <ClCompile Include="dialog22.c" />
     <ClCompile Include="dialog23.c" />
     <ClCompile Include="dialog24.c" />
+    <ClCompile Include="dialog25.c" />
     <ClCompile Include="dialog3.c" />
     <ClCompile Include="dialog4.c" />
     <ClCompile Include="dialog5.c" />
