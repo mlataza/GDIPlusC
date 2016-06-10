@@ -26,5 +26,6 @@ INT_PTR CALLBACK DialogProc20(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 INT_PTR CALLBACK DialogProc21(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK DialogProc22(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 INT_PTR CALLBACK DialogProc23(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+INT_PTR CALLBACK DialogProc24(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 #endif // DIALOGS_H_
