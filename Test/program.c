@@ -103,7 +103,8 @@ Sample Samples[] = {
     {L"15. Recording Metafiles", DialogProc15},
     {L"16. Cropping and Scaling Images", DialogProc16},
     {L"17. Rotating, Reflecting, and Skewing Images", DialogProc17},
-    {L"18. Using Interpolation Mode to Control Image Quality During Scaling", DialogProc18}
+    {L"18. Using Interpolation Mode to Control Image Quality During Scaling", DialogProc18},
+    {L"19. Creating Thumbnail Images", DialogProc19}
 };
 
 #define MARGIN      8

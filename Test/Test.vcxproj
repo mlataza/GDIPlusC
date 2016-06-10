@@ -157,6 +157,7 @@
     <ClCompile Include="dialog16.c" />
     <ClCompile Include="dialog17.c" />
     <ClCompile Include="dialog18.c" />
+    <ClCompile Include="dialog19.c" />
     <ClCompile Include="dialog2.c" />
     <ClCompile Include="dialog3.c" />
     <ClCompile Include="dialog4.c" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Apple.gif" />
+    <Image Include="Compass.png" />
     <Image Include="GrapeBunch.bmp" />
     <Image Include="HouseAndTree.png" />
     <Image Include="Stripes.bmp" />
